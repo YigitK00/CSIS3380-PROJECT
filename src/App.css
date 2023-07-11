@@ -6,12 +6,17 @@
 }
 
 body {
-  background-color: #fff;
+  background-color: #f2f3f5;
 }
 
 /*------------
-NAVIGATION LINKS
+NAVIGATION BAR
 -------------*/
+
+h1 {
+  position: relative;
+  padding-left: 15px;
+}
 
 .nav-head {
   display: flex;
@@ -19,7 +24,7 @@ NAVIGATION LINKS
   justify-content: space-between;
   background-color: #87ceeb;
   width: 100%;
-  padding: 25px;
+  padding: 20px 0;
 }
 
 .nav-links {
@@ -55,6 +60,7 @@ LOGIN and SIGNUP Buttons
 .login-signup button {
   position: relative;
   font-size: 15px;
+  font-weight: 600;
   padding: 0 15px;
   background-color: #87ceeb;
   color: #000;
