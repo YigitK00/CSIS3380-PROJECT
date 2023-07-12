@@ -1,4 +1,4 @@
-export const offers = [
+export const offerList = [
   {
     productName: 'Personal Loans',
     id: 1,
