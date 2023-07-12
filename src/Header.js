@@ -19,14 +19,14 @@ const Header = () => (
           <NavLink to="/support">Support</NavLink>
         </li>
       </ul>
-      <div className="login-signup">
-        <button className="login" type="submit">
-          Login
-        </button>
-        <button className="signup" type="submit">
-          Sign Up
-        </button>
-      </div>
+      <ul className="login-signup">
+        <li>
+          <NavLink to="/login">Login</NavLink>
+        </li>
+        <li>
+          <NavLink to="/sign-up">Sign up</NavLink>
+        </li>
+      </ul>
     </nav>
     <hr />
   </header>
