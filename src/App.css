@@ -22,7 +22,7 @@ h1 {
   display: flex;
   align-items: center;
   justify-content: space-between;
-  background-color: #87ceeb;
+  background-color: #fff;
   width: 100%;
   padding: 20px 0;
 }
@@ -35,21 +35,23 @@ h1 {
 
 .nav-links li {
   position: relative;
-  padding: 0 20px;
-  background-color: #87ceeb;
-  color: #000;
-  font-weight: 600;
-  font-size: 17px;
+  background-color: #fff;
   list-style: none;
 }
 
 .nav-links li a {
+  font-size: 17px;
+  display: block;
   color: #000;
+  padding: 10px 20px;
+  border-radius: 5px;
+  font-weight: 600;
   text-decoration: none;
   transition: 0.3s ease-in-out;
 }
 
 .nav-links li a:hover {
+  background-color: #0096ff;
   color: #fff;
 }
 
@@ -61,8 +63,9 @@ LOGIN and SIGNUP Buttons
   position: relative;
   font-size: 15px;
   font-weight: 600;
-  padding: 0 15px;
-  background-color: #87ceeb;
+  padding: 10px 15px;
+  background-color: #fff;
+  border-radius: 5px;
   color: #000;
   border-style: none;
   cursor: pointer;
@@ -71,5 +74,31 @@ LOGIN and SIGNUP Buttons
 
 .login-signup button:hover,
 .login-signup button:active {
+  background-color: #0096ff;
   color: #fff;
+}
+
+/*-----------
+MENU STYLINGS
+------------*/
+
+.menu-links {
+  list-style-type: none;
+  margin: 0;
+  padding-top: 15px;
+  width: 220px;
+  background-color: #f2f3f5;
+}
+
+.menu-links a {
+  display: block;
+  color: #000;
+  padding: 12px 18px;
+  text-decoration: none;
+  transition: 0.3s ease-in-out;
+}
+
+.menu-links a:hover {
+  background-color: #ccc;
+  color: #000;
 }
