@@ -28,6 +28,7 @@ const Header = () => (
         </button>
       </div>
     </nav>
+    <hr />
   </header>
 );
 
