@@ -59,21 +59,31 @@ h1 {
 LOGIN and SIGNUP Buttons
 -----------------------*/
 
-.login-signup button {
+.login-signup {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.login-signup li {
   position: relative;
-  font-size: 15px;
-  font-weight: 600;
-  padding: 10px 15px;
   background-color: #fff;
-  border-radius: 5px;
+  list-style: none;
+}
+
+.login-signup li a {
+  font-size: 15px;
+  display: block;
   color: #000;
-  border-style: none;
-  cursor: pointer;
+  padding: 10px 20px;
+  border-radius: 5px;
+  font-weight: 600;
+  text-decoration: none;
   transition: 0.3s ease-in-out;
 }
 
-.login-signup button:hover,
-.login-signup button:active {
+.login-signup li a:hover,
+.login-signup li a:active {
   background-color: #0096ff;
   color: #fff;
 }
