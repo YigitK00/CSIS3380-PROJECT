@@ -9,9 +9,9 @@ body {
   background-color: #f2f3f5;
 }
 
-/*------------
-NAVIGATION BAR
--------------*/
+/*-----------------------
+HORIZONTAL NAVIGATION BAR
+-----------------------*/
 
 h1 {
   position: relative;
@@ -57,7 +57,7 @@ h1 {
 
 /*----------------------
 LOGIN and SIGNUP Buttons
------------------------*/
+----------------------*/
 
 .login-signup {
   display: flex;
@@ -88,9 +88,9 @@ LOGIN and SIGNUP Buttons
   color: #fff;
 }
 
-/*-----------
-MENU STYLINGS
-------------*/
+/*---------------------
+VERTICAL NAVIGATION BAR
+---------------------*/
 
 .menu-links {
   list-style-type: none;
@@ -111,4 +111,63 @@ MENU STYLINGS
 .menu-links a:hover {
   background-color: #ccc;
   color: #000;
+}
+
+/*--------------------
+LOGIN and SIGN-UP FORM
+--------------------*/
+
+.form-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 15vh;
+}
+
+.login-form,
+.signup-form {
+  padding: 20px;
+}
+
+form {
+  border: 2px solid #000;
+  width: 25%;
+  height: 30vh;
+}
+
+form label {
+  font-weight: 600;
+}
+
+form input[type='text'],
+input[type='password'] {
+  padding: 12px 10px;
+  margin: 8px 0;
+  display: inline-block;
+  border: 1px solid #000;
+  width: 100%;
+}
+
+form input[type='checkbox'] {
+  margin: 10px 0;
+}
+
+.login-button,
+.signup-button {
+  width: 100%;
+  background-color: #0096ff;
+  font-weight: 600;
+  cursor: pointer;
+  border: none;
+  color: #000;
+  padding: 10px 20px;
+  margin: 8px 0;
+  transition: 0.3s ease-in-out;
+}
+
+.login-button:hover,
+.login-button:active,
+.signup-button:hover,
+.signup-button:active {
+  color: #fff;
 }
