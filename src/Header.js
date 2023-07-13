@@ -1,6 +1,6 @@
 import React from 'react';
 import { NavLink } from 'react-router-dom';
-import Menu from './Menu';
+import Navigation from './Navigation';
 
 const Header = () => (
   <header>
@@ -31,7 +31,7 @@ const Header = () => (
         </ul>
       </nav>
       <hr />
-      <Menu />
+      <Navigation />
     </div>
   </header>
 );
