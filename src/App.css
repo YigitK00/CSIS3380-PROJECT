@@ -16,7 +16,7 @@ NAVIGATION BAR
 .nav-head {
   display: flex;
   align-items: center;
-  justify-content: flex-start;
+  justify-content: space-between;
   background-color: white;
   width: 100%;
   padding: 2em 0;
@@ -27,7 +27,7 @@ NAVIGATION BAR
   text-align: left;
   align-items: flex-start;
   justify-content: flex-start;
-  margin-left: 5em;
+  margin-left: 1em;
 }
 
 .nav-links li {
@@ -58,7 +58,7 @@ LOGIN and SIGNUP Buttons
   padding-right: 2em;
   align-items: flex-end;
   justify-content: flex-end;
-  margin-left: 68em;
+  margin-right: 2em;
 }
 
 .login-signup button {
