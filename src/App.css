@@ -2,7 +2,7 @@
   box-sizing: border-box;
   margin: 0;
   padding: 0;
-  font-family: sans-serif;
+  font-family: Arial, Helvetica, sans-serif;
 }
 
 body {
@@ -13,33 +13,30 @@ body {
 NAVIGATION BAR
 -------------*/
 
-h1 {
-  position: relative;
-  padding-left: 15px;
-}
-
 .nav-head {
   display: flex;
   align-items: center;
-  justify-content: space-between;
-  background-color: #87ceeb;
+  justify-content: flex-start;
+  background-color: white;
   width: 100%;
-  padding: 20px 0;
+  padding: 2em 0;
 }
 
 .nav-links {
   display: flex;
-  align-items: center;
-  justify-content: center;
+  text-align: left;
+  align-items: flex-start;
+  justify-content: flex-start;
+  margin-left: 5em;
 }
 
 .nav-links li {
   position: relative;
   padding: 0 20px;
-  background-color: #87ceeb;
+  background-color: white;
   color: #000;
   font-weight: 600;
-  font-size: 17px;
+  font-size: 1.6em;
   list-style: none;
 }
 
@@ -57,12 +54,19 @@ h1 {
 LOGIN and SIGNUP Buttons
 -----------------------*/
 
+.login-signup {
+  padding-right: 2em;
+  align-items: flex-end;
+  justify-content: flex-end;
+  margin-left: 68em;
+}
+
 .login-signup button {
   position: relative;
-  font-size: 15px;
+  font-size: 1.4em;
   font-weight: 600;
   padding: 0 15px;
-  background-color: #87ceeb;
+  background-color: white;
   color: #000;
   border-style: none;
   cursor: pointer;
@@ -72,4 +76,12 @@ LOGIN and SIGNUP Buttons
 .login-signup button:hover,
 .login-signup button:active {
   color: #fff;
+}
+
+/*----------------------
+Logo
+-----------------------*/
+.logo {
+  padding-left: 2em;
+  height: 7em;
 }
