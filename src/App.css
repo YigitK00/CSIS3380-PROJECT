@@ -9,6 +9,11 @@ body {
   background-color: #f2f3f5;
 }
 
+.logo {
+  padding-left: 2em;
+  height: 6em;
+}
+
 /*-----------------------
 HORIZONTAL NAVIGATION BAR
 -----------------------*/
