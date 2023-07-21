@@ -6,7 +6,7 @@ const Header = () => (
   <header>
     <div>
       <nav className="nav-head">
-        <h1>Company Name</h1>
+        <img className="logo" src="loanwolf.png" alt="loanwolf" />
         <ul className="nav-links">
           <li>
             <NavLink to="/">Home</NavLink>
