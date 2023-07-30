@@ -40,6 +40,14 @@ async function findByName(first, last){
      }).catch(()=>{console.log("failed to find user by name and last name")})
 }
 
+async function findByEmail(email){
+     return await model.find({"account.email":email})
+     .then((data) => {
+          console.log(data)
+          return data
+     }).catch(() => {console.log("Could not find a user with that email")})
+}
+
 async function UpdateUserByFirstLastName(
      find_fName,find_lName,re_fName,re_lName,re_email,re_password,
      ){
@@ -73,6 +81,7 @@ async function dumpDB(){
 module.exports={
      makeUser,
      findByName,
+     findByEmail,
      UpdateUserByFirstLastName,
      deleteUserByFLName,
      dumpDB

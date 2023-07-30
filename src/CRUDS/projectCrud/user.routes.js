@@ -25,7 +25,7 @@ router.post("/login", async (req, res) => {
      await db.connect();
 
      const {email, password} = req.body;
-     const userWithEmail = await crud.findOne({where: {account: email} }).catch(
+     const userWithEmail = await crud.findByEmail(email).catch(
           (err) => {
                console.log("Error: ", err);
           }
@@ -37,7 +37,7 @@ router.post("/login", async (req, res) => {
                .status(400)
                .json({message: "Email or password does not match!"});
      
-     if(userWithEmail.account.password !== password)
+     if(userWithEmail[0].account.password !== password)
           return res
                .status(400)
                .json({message: "Email or password does not match!"});
@@ -45,8 +45,8 @@ router.post("/login", async (req, res) => {
      
      //Generating jwt token
      const jwtToken = jwt.sign(
-          { id: userWithEmail.id, email: userWithEmail.account.email },
-          process.env.JWT_SECRET
+          { id: userWithEmail[0].id, email: userWithEmail[0].account.email },
+          "CSIS3380" //Will be replaced with process.env.JWT_SECRET
      );
      
      await db.disconnect();
@@ -85,7 +85,7 @@ router.get("/user/:first&:last", async (req, res)=>{
      const last=(req.params.last)
      
      if(first ==null || last== null){
-          res.status(400).json({res:"enter 'firstname&lastname', exmaple:'james&oneal'"})
+          res.status(400).json({res:"enter 'firstname&lastname', example:'james&oneal'"})
      }else{
           // console.log(req.params.first)
           // console.log(req.params.last)
