@@ -1,14 +1,10 @@
 import React from 'react';
 import { useFormik } from "formik";
-import axios, {AxiosError} from "axios";
+import axios, {AxiosError, AxiosHeaders} from "axios";
 import {useState} from 'react';
-import { useSignIn } from 'react-auth-kit';
 
-function LoginForm() {
-
+function RegisterForm() {
   const [error, setError] = useState("");
-
-  const signIn = useSignIn();
 
   const onSubmit = async(values) => {
     console.log("Values: ", values);
@@ -16,19 +12,12 @@ function LoginForm() {
 
     try {
       const response = await axios.post(
-        "http://localhost:5000/login", 
+        "http://localhost:5000/register",
         values,
         {
           headers: {"Access-Control-Allow-Origin": true}
         },
       );
-
-      signIn({
-        token: response.data.token,
-        expiresIn: 1440, //cookie expires after 1 day
-        tokenType: "Bearer",
-        authState: {email: values.email},
-      });
 
     } catch (err) {
       if (err && err instanceof AxiosError)
@@ -42,11 +31,13 @@ function LoginForm() {
 
   const formik = useFormik({
     initialValues: {
+      first: "",
+      last: "",
       email: "",
       password: "",
     },
     onSubmit: values => {
-      alert(JSON.stringify(values)); // debugging
+      alert(JSON.stringify(values));
     },
     onSubmit,
   });
@@ -54,7 +45,25 @@ function LoginForm() {
   return (
     <div className="form-container">
     <form onSubmit={formik.handleSubmit}>
-      <div className="login-form">
+      <div className="signup-form">
+        <label htmlFor="first">First Name</label>
+        <input
+          type="text"
+          value={formik.values.fname}
+          onChange={formik.handleChange}
+          placeholder="First Name"
+          name="first"
+          required
+        />
+        <label htmlFor="last">Last Name</label>
+        <input
+          type="text"
+          value={formik.values.lname}
+          onChange={formik.handleChange}
+          placeholder="Last Name"
+          name="last"
+          required
+        />
         <label htmlFor="email">Email</label>
         <input
           type="text"
@@ -74,17 +83,14 @@ function LoginForm() {
           required
         />
 
-        <button type="submit" className="login-button">
-          Login
+        <button type="submit" className="signup-button">
+          Register
         </button>
-        <label>
-          <input type="checkbox" name="remember" />
-          Remember me
-        </label>
       </div>
     </form>
   </div>
   );
 }
 
-export default LoginForm;
+
+export default RegisterForm;

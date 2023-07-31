@@ -50,7 +50,7 @@ router.post("/login", async (req, res) => {
      );
      
      await db.disconnect();
-
+     console.log(jwtToken);
      res.json({message: "Welcome to loanwolf!", token: jwtToken});
 });
 
