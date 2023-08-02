@@ -1,11 +1,15 @@
 const router=require("express").Router()
 const db= require("./db_connect")
 const crud= require('./user.cruds')
+const jwt = require('jsonwebtoken');
 
      // this page deals with the user. 
 
 router.get("/",async(req, res)=>{
-     res.json({msg:"i here "})
+     await db.connect();
+     const users = await crud.getAllUsers();
+     await db.disconnect();
+          res.status(200).json({res:users});
 })
 router.get("/dumpDB",async (req, res)=>{
      try{
@@ -19,6 +23,39 @@ router.get("/dumpDB",async (req, res)=>{
      }
 })
 
+//route for user to log in
+router.post("/login", async (req, res) => {
+     await db.connect();
+
+     const {email, password} = req.body;
+     const userWithEmail = await crud.findByEmail(email).catch(
+          (err) => {
+               console.log("Error: ", err);
+          }
+     );
+
+     //Email and password validations
+     if(!userWithEmail)
+          return res
+               .status(400)
+               .json({message: "Email or password does not match!"});
+     
+     if(userWithEmail[0].account.password !== password)
+          return res
+               .status(400)
+               .json({message: "Email or password does not match!"});
+     
+     
+     //Generating jwt token
+     const jwtToken = jwt.sign(
+          { id: userWithEmail[0].id, email: userWithEmail[0].account.email },
+          "CSIS3380" //Will be replaced with process.env.JWT_SECRET
+     );
+     
+     await db.disconnect();
+     console.log(jwtToken);
+     res.json({message: "Welcome to loanwolf!", token: jwtToken});
+});
 
 //insert a newly registered user, so lName, fName, email, password
 router.post("/register",async (req, res)=>{
@@ -51,7 +88,7 @@ router.get("/user/:first&:last", async (req, res)=>{
      const last=(req.params.last)
      
      if(first ==null || last== null){
-          res.status(400).json({res:"enter 'firstname&lastname', exmaple:'james&oneal'"})
+          res.status(400).json({res:"enter 'firstname&lastname', example:'james&oneal'"})
      }else{
           // console.log(req.params.first)
           // console.log(req.params.last)
