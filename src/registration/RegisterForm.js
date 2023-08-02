@@ -1,6 +1,6 @@
 import React from 'react';
 import { useFormik } from "formik";
-import axios, {AxiosError, AxiosHeaders} from "axios";
+import axios, {AxiosError} from "axios";
 import {useState} from 'react';
 
 function RegisterForm() {
@@ -11,8 +11,8 @@ function RegisterForm() {
     setError("");
 
     try {
-      const response = await axios.post(
-        "http://localhost:5000/register",
+      await axios.post(
+        "http://localhost:3000/register",
         values,
         {
           headers: {"Access-Control-Allow-Origin": true}
@@ -35,9 +35,6 @@ function RegisterForm() {
       last: "",
       email: "",
       password: "",
-    },
-    onSubmit: values => {
-      alert(JSON.stringify(values));
     },
     onSubmit,
   });

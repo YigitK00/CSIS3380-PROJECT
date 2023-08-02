@@ -16,7 +16,7 @@ function LoginForm() {
 
     try {
       const response = await axios.post(
-        "http://localhost:5000/login", 
+        "http://localhost:3000/login", 
         values,
         {
           headers: {"Access-Control-Allow-Origin": true}
@@ -44,9 +44,6 @@ function LoginForm() {
     initialValues: {
       email: "",
       password: "",
-    },
-    onSubmit: values => {
-      alert(JSON.stringify(values)); // debugging
     },
     onSubmit,
   });

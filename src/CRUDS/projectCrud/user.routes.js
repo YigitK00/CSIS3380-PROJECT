@@ -6,7 +6,10 @@ const jwt = require('jsonwebtoken');
      // this page deals with the user. 
 
 router.get("/",async(req, res)=>{
-     res.json({msg:"i here "})
+     await db.connect();
+     const users = await crud.getAllUsers();
+     await db.disconnect();
+          res.status(200).json({res:users});
 })
 router.get("/dumpDB",async (req, res)=>{
      try{
