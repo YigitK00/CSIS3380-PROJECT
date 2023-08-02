@@ -8,7 +8,7 @@ import Contact from './navigation/Contact';
 import Support from './navigation/Support';
 
 import LoginForm from './registration/LoginForm';
-import SignupForm from './registration/SignupForm';
+import RegisterForm from './registration/RegisterForm';
 
 const App = () => (
   <div className="wrapper">
@@ -19,7 +19,7 @@ const App = () => (
       <Route path="/contact" element={<Contact />} />
       <Route path="/support" element={<Support />} />
       <Route path="/login" element={<LoginForm />} />
-      <Route path="/sign-up" element={<SignupForm />} />
+      <Route path="/register" element={<RegisterForm />} />
     </Routes>
   </div>
 );

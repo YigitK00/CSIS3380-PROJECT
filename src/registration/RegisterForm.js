@@ -1,6 +1,6 @@
 import React from 'react';
 
-const SignupForm = () => (
+const RegisterForm = () => (
   <div className="form-container">
     <form>
       <div className="signup-form">
@@ -31,4 +31,4 @@ const SignupForm = () => (
   </div>
 );
 
-export default SignupForm;
+export default RegisterForm;
