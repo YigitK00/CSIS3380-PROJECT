@@ -54,7 +54,9 @@ router.post("/login", async (req, res) => {
      
      await db.disconnect();
      console.log(jwtToken);
-     res.json({message: "Welcome to loanwolf!", token: jwtToken});
+     res
+          .json({message: "Welcome to loanwolf!", token: jwtToken})
+          .redirect("back")
 });
 
 //insert a newly registered user, so lName, fName, email, password
