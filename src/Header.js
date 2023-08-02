@@ -1,25 +1,12 @@
 import React from 'react';
 import { NavLink } from 'react-router-dom';
-import { useNavigate } from 'react-router-dom/dist';
+import Navigation from './Navigation';
 
-function Header() {
-
-  let navigate = useNavigate();
-
-  const loginRoute = () => {
-    let path = '/login';
-    navigate(path);
-  }
-  
-  const signupRoute = () => {
-    let path = '/signup';
-    navigate(path);
-  }
-
-  return (
-    <header>
+const Header = () => (
+  <header>
+    <div>
       <nav className="nav-head">
-        <img className="logo" src="loanwolf.png" alt="loanwolf"/>
+        <img className="logo" src="loanwolf.png" alt="loanwolf" />
         <ul className="nav-links">
           <li>
             <NavLink to="/">Home</NavLink>
@@ -34,18 +21,22 @@ function Header() {
             <NavLink to="/support">Support</NavLink>
           </li>
         </ul>
-        <div className="login-signup">
-          <button className="login" type="submit" onClick={loginRoute}>
-            Login
-          </button>
-          <button className="signup" type="submit" onClick={signupRoute}>
-            Sign Up
-          </button>
-        </div>
+        <ul className="login-signup">
+          <li>
+            <NavLink to="/login">Login</NavLink>
+          </li>
+          <li>
+            <NavLink to="/register">Register</NavLink>
+          </li>
+        </ul>
       </nav>
-    </header>
-  );
-}
-
+      <hr />
+      <Navigation />
+      
+      
+      i am here
+    </div>
+  </header>
+);
 
 export default Header;

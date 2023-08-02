@@ -2,86 +2,177 @@
   box-sizing: border-box;
   margin: 0;
   padding: 0;
-  font-family: Arial, Helvetica, sans-serif;
+  font-family: sans-serif;
 }
 
 body {
   background-color: #f2f3f5;
 }
 
-/*------------
-NAVIGATION BAR
--------------*/
+.logo {
+  padding-left: 2em;
+  height: 6em;
+}
+
+/*-----------------------
+HORIZONTAL NAVIGATION BAR
+-----------------------*/
+
+h1 {
+  position: relative;
+  padding-left: 15px;
+}
 
 .nav-head {
   display: flex;
   align-items: center;
   justify-content: space-between;
-  background-color: white;
+  background-color: #fff;
   width: 100%;
-  padding: 2em 0;
+  padding: 20px 0;
 }
 
 .nav-links {
   display: flex;
-  text-align: left;
-  align-items: flex-start;
-  justify-content: flex-start;
-  margin-left: 1em;
+  align-items: center;
+  justify-content: center;
 }
 
 .nav-links li {
   position: relative;
-  padding: 0 20px;
-  background-color: white;
-  color: #000;
-  font-weight: 600;
-  font-size: 1.6em;
+  background-color: #fff;
   list-style: none;
 }
 
 .nav-links li a {
+  font-size: 17px;
+  display: block;
   color: #000;
+  padding: 10px 20px;
+  border-radius: 5px;
+  font-weight: 600;
   text-decoration: none;
   transition: 0.3s ease-in-out;
 }
 
 .nav-links li a:hover {
+  background-color: #0096ff;
   color: #fff;
 }
 
 /*----------------------
 LOGIN and SIGNUP Buttons
------------------------*/
+----------------------*/
 
 .login-signup {
-  padding-right: 2em;
-  align-items: flex-end;
-  justify-content: flex-end;
-  margin-right: 2em;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 
-.login-signup button {
+.login-signup li {
   position: relative;
-  font-size: 1.4em;
-  font-weight: 600;
-  padding: 0 15px;
-  background-color: white;
+  background-color: #fff;
+  list-style: none;
+}
+
+.login-signup li a {
+  font-size: 15px;
+  display: block;
   color: #000;
-  border-style: none;
-  cursor: pointer;
+  padding: 10px 20px;
+  border-radius: 5px;
+  font-weight: 600;
+  text-decoration: none;
   transition: 0.3s ease-in-out;
 }
 
-.login-signup button:hover,
-.login-signup button:active {
+.login-signup li a:hover,
+.login-signup li a:active {
+  background-color: #0096ff;
   color: #fff;
 }
 
-/*----------------------
-Logo
------------------------*/
-.logo {
-  padding-left: 2em;
-  height: 7em;
+/*---------------------
+VERTICAL NAVIGATION BAR
+---------------------*/
+
+.menu-links {
+  list-style-type: none;
+  margin: 0;
+  padding-top: 15px;
+  width: 220px;
+  background-color: #f2f3f5;
+}
+
+.menu-links a {
+  display: block;
+  color: #000;
+  padding: 12px 18px;
+  text-decoration: none;
+  transition: 0.3s ease-in-out;
+}
+
+.menu-links a:hover {
+  background-color: #ccc;
+  color: #000;
+}
+
+/*--------------------
+LOGIN and SIGN-UP FORM
+--------------------*/
+
+.form-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 15vh;
+}
+
+.login-form,
+.signup-form {
+  padding: 20px;
+}
+
+form {
+  border: 2px solid #000;
+  width: 25%;
+  height: 30vh;
+}
+
+form label {
+  font-weight: 600;
+}
+
+form input[type='text'],
+input[type='password'] {
+  padding: 12px 10px;
+  margin: 8px 0;
+  display: inline-block;
+  border: 1px solid #000;
+  width: 100%;
+}
+
+form input[type='checkbox'] {
+  margin: 10px 0;
+}
+
+.login-button,
+.signup-button {
+  width: 100%;
+  background-color: #0096ff;
+  font-weight: 600;
+  cursor: pointer;
+  border: none;
+  color: #000;
+  padding: 10px 20px;
+  margin: 8px 0;
+  transition: 0.3s ease-in-out;
+}
+
+.login-button:hover,
+.login-button:active,
+.signup-button:hover,
+.signup-button:active {
+  color: #fff;
 }

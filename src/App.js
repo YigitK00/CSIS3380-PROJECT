@@ -3,22 +3,26 @@ import { Routes, Route } from 'react-router-dom';
 
 import Header from './Header';
 import Home from './Home';
-import About from './About';
-import Contact from './Contact';
-import Support from './Support';
-import Login from './Login';
-import Signup from './Signup';
+import About from './navigation/About';
+import Contact from './navigation/Contact';
+import Support from './navigation/Support';
+
+import LoginForm from './registration/LoginForm';
+import RegisterForm from './registration/RegisterForm';
+import PersonalLoans from './navigation/PersonalLoans';
+import { RequireAuth } from 'react-auth-kit';
 
 const App = () => (
   <div className="wrapper">
     <Header />
     <Routes>
-      <Route path="/" element={<Home />} />
+      <Route path="/" element={<Home/>} />
       <Route path="/about" element={<About />} />
       <Route path="/contact" element={<Contact />} />
       <Route path="/support" element={<Support />} />
-      <Route path="/login" element={<Login />} />
-      <Route path="/signup" element={<Signup />} />
+      <Route path="/login" element={<LoginForm />} />
+      <Route path="/register" element={<RegisterForm />} />
+      <Route path="/personal-loans" element={<PersonalLoans />} />
     </Routes>
   </div>
 );
