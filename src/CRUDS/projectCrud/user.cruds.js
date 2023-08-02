@@ -29,7 +29,15 @@ async function  makeUser(fName, lName, email, password){
 //function scramble password
 function scramblePassword(password){
 
-     return password
+     return password;
+}
+
+async function getAllUsers(){
+     return await model.find({})
+          .then((data) => {
+               return data;
+          })
+          .catch(()=>{console.log("No users exist")});
 }
 
 async function findByName(first, last){
@@ -38,6 +46,14 @@ async function findByName(first, last){
           // console.log("user found!\n"+data)
           return data
      }).catch(()=>{console.log("failed to find user by name and last name")})
+}
+
+async function findByEmail(email){
+     return await model.find({"account.email":email})
+     .then((data) => {
+          console.log(data)
+          return data
+     }).catch(() => {console.log("Could not find a user with that email")})
 }
 
 async function UpdateUserByFirstLastName(
@@ -72,7 +88,9 @@ async function dumpDB(){
 
 module.exports={
      makeUser,
+     getAllUsers,
      findByName,
+     findByEmail,
      UpdateUserByFirstLastName,
      deleteUserByFLName,
      dumpDB

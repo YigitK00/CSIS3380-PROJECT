@@ -8,18 +8,21 @@ import Contact from './navigation/Contact';
 import Support from './navigation/Support';
 
 import LoginForm from './registration/LoginForm';
-import SignupForm from './registration/SignupForm';
+import RegisterForm from './registration/RegisterForm';
+import PersonalLoans from './navigation/PersonalLoans';
+import { RequireAuth } from 'react-auth-kit';
 
 const App = () => (
   <div className="wrapper">
     <Header />
     <Routes>
-      <Route path="/" element={<Home />} />
+      <Route path="/" element={<Home/>} />
       <Route path="/about" element={<About />} />
       <Route path="/contact" element={<Contact />} />
       <Route path="/support" element={<Support />} />
       <Route path="/login" element={<LoginForm />} />
-      <Route path="/sign-up" element={<SignupForm />} />
+      <Route path="/register" element={<RegisterForm />} />
+      <Route path="/personal-loans" element={<RequireAuth><PersonalLoans /></RequireAuth>} />
     </Routes>
   </div>
 );
