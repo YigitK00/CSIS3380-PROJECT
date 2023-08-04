@@ -84,28 +84,28 @@ function PersonalLoans() {
     return textArray[1];
   }
 
+  const loanType = "Personal";
+
   const [loans, setLoans] = useState([]);
   useEffect(() => {
     axios
     .get(
-      `http://localhost:3000/Personal/tomriddle@gmail.com`,
-      {
-        headers: {"Access-Control-Allow-Origin": true}
-      },
+      `http://localhost:3000/${loanType}&${userEmail()}`
     )
     .then((res) => {
-      setLoans(res.data);
+      setLoans(res.json);
     })
     .catch((err) => {
       console.log(err);
     });
   }, []);
 
-  const loanStrings = JSON.stringify(loans);
-
   return (
     <div>
-      {loanStrings}
+      {/* {loans.map((loan) => {
+        return JSON.stringify(loan)
+      })} */}
+      {JSON.stringify(loans)}
     </div>
   )
 }

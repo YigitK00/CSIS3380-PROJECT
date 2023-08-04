@@ -2,14 +2,6 @@ const router= require('express').Router()
 const db= require("./db_connect")
 const loanCrud = require('./loan.crud')
 
-//******************         Read    ****************** */
-router.get("/loans", async(req, res)=>{
-     await db.connect();
-     const users = await loanCrud.getAllLoans();
-     await db.disconnect();
-          res.status(200).json({res:users});
-})
-
 //******************         Create    ****************** */
 router.post("/newloan/", async (req, res)=>{
      // search for user. 
@@ -46,8 +38,17 @@ router.post("/newloan/", async (req, res)=>{
      }
 })
 
+//******************         Read    ****************** */
+// find all loans
+router.get("/loans", async(req, res)=>{
+     await db.connect();
+     const users = await loanCrud.getAllLoans();
+     await db.disconnect();
+          res.status(200).json({res:users});
+})
+
 // find by type 
-router.get("/:type/:email", async(req, res)=>{
+router.get("/:type&:email", async(req, res)=>{
      const type=req.params.type
      const email=req.params.email
      if(type== null || email==null){
