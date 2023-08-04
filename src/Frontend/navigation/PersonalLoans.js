@@ -71,29 +71,30 @@ import axios from "axios";
 //     );
 //   }
 // }
+const userEmail = () => {
+  const value = `${document.cookie}`;
+  const regex = /%22(.*)%22/g; // The actual regex
+  const matches = regex.exec(value);
+  const text =  matches[1];
+  const textArray = text.split("%22:%22");
+
+  return textArray[1];
+}
+
+const loanType = "Personal";
+
+const url = `http://localhost:3000/${loanType}/${userEmail()}`;
 
 function PersonalLoans() {
-
-  const userEmail = () => {
-    const value = `${document.cookie}`;
-    const regex = /%22(.*)%22/g; // The actual regex
-    const matches = regex.exec(value);
-    const text =  matches[1];
-    const textArray = text.split("%22:%22");
-
-    return textArray[1];
-  }
-
-  const loanType = "Personal";
 
   const [loans, setLoans] = useState([]);
   useEffect(() => {
     axios
     .get(
-      `http://localhost:3000/${loanType}&${userEmail()}`
+      url
     )
     .then((res) => {
-      setLoans(res.json);
+      setLoans(res.data);
     })
     .catch((err) => {
       console.log(err);
