@@ -1,12 +1,19 @@
 const router= require('express').Router()
-const model = require('./loan.model')
 const db= require("./db_connect")
 const loanCrud = require('./loan.crud')
 
+//******************         Read    ****************** */
+router.get("/loans", async(req, res)=>{
+     await db.connect();
+     const users = await loanCrud.getAllLoans();
+     await db.disconnect();
+          res.status(200).json({res:users});
+})
+
 //******************         Create    ****************** */
-router.post("/loan/:email",async (req, res)=>{
+router.post("/newloan/", async (req, res)=>{
      // search for user. 
-     const email= (req.params.email)
+     const email= (req.body.email)
    
      //loan properties. 
      const type= (req.body.type)
@@ -14,22 +21,22 @@ router.post("/loan/:email",async (req, res)=>{
      const amount= (req.body.amount)
      const interest_rate= (req.body.interest_rate)
      const term= (req.body.term)
-     const compouning_period= (req.body.compouning_period)
+     const compounding_period= (req.body.compounding_period)
      const expense= req.body.expense
 
      if(
           email==null|| 
           type== null|| name== null||amount== null|| interest_rate== null||
-          term== null|| compouning_period== null|| expense== null
+          term== null|| compounding_period== null|| expense== null
           ){
           res.status(400).json({res:`need to have the following values: fname lname type name amount interest_rate term compounindg_period expense ex: { "type":"personal loan","name": "education", "amount": 1500,"interest_rate": 5.4,"term": 12,"compounind_period":3, "expense":true}`
           })
      }else{
           try{
                await db.connect()
-               await loanCrud.addLoanToUser(email, 
+               await loanCrud.addLoan(email, 
                     type, expense, name, amount, interest_rate,
-                    term, compouning_period)
+                    term, compounding_period)
                await db.disconnect()
           }catch(e){
                res.status(400).json({res:"failed to add user to the db" })
@@ -39,39 +46,19 @@ router.post("/loan/:email",async (req, res)=>{
      }
 })
 
-//******************         Read    ****************** */
-// need to go from more specifc to less specific since it follows the same path almost. 
-
-// find all
-router.get("/loan/:email",async(req, res)=>{
-     let email=(req.params.email)
-     if(email == null){
-          res.status(400).json({res:"need a email parameter"})
-     }
-     try{
-          await db.connect();
-          let data=await loanCrud.readAll(email)
-          await db.disconnect();
-          res.status(200).json({res:data})
-     }catch(e){
-          res.status(500).json({res:"db read failed, loan line 56"})
-     }
-     console.log(data)
-})
-
 // find by type 
-router.get("/loan/:email/type/:type", async(req, res)=>{
-     let type=req.params.type
-     let email=req.params.email
+router.get("/:type/:email", async(req, res)=>{
+     const type=req.params.type
+     const email=req.params.email
      if(type== null || email==null){
           res.status(400).json({res:"need type of loan and email"})
      }
 
      await db.connect()
-     let data= await loanCrud.findByType(email,type)
+     const data= await loanCrud.findByType(type, email)
      await db.disconnect()
      
-     if(data.length==0){
+     if(data==null){
           res.status(400).json({res:"no matches found"})
      }
 
@@ -79,53 +66,69 @@ router.get("/loan/:email/type/:type", async(req, res)=>{
 })
 
 // find by id 
-router.get("/loan/:email/id/:id", async(req, res)=>{
-     //some code
-     let email=req.params.email
-     let id=req.params.id
-
-     if(email==null|| id==null){
-          res.status(400).json({res:"need both email and id"})
+router.get("/:id", async(req, res)=>{
+     const id=req.params.id
+     if(id == null){
+          res.status(400).json({res:"need loan email"})
      }
 
      await db.connect()
-     let data =await loanCrud.findByID(email, id)
+     const data= await loanCrud.findByID(id)
      await db.disconnect()
+     
+     if(data==null){
+          res.status(400).json({res:"no matches found"})
+     }
 
      res.status(200).json({res:data})
 })
 
 
 //******************         update    ****************** */
-// i dont work 
-router.put("/loan/:email/:id", async(req, res)=>{
-     let email= req.params.email
-     let id= req.params.id
-     let type= req.body.type
-     let expense= req.body.expense
-     let _name= req.body.name
-     let amount= req.body.amount
-     let interest_rate= req.body.interest_rate
-     let term= req.body.term
 
-     await db.connect()
-     await loanCrud.updateLoan(
-          email,id,type,expense,_name,amount,interest_rate,term
-     )
+router.put("/:id", async (req, res) => {
+     find_id = req.params.id
+     //replace values
+     re_expense=req.body.expense
+     re_name=req.body.name
+     re_amount=req.body.amount
+     re_intrate=req.body.interest_rate
+     re_term=req.body.term
+     re_comp=req.body.compounding_period
 
-     await db.disconnect()
 
+     if(find_id ==null||re_expense ==null||re_name==null||re_amount==null
+          ||re_intrate==null ||re_term==null ||re_comp==null){
+          res.status().json({res:"Need to fill all the fields"})
+     }else{
+
+          await db.connect()
+
+          await loanCrud.updateLoan(
+               find_id, re_expense, re_name, re_amount, re_intrate, re_term, re_comp
+          )
+          .then( async ()=>{
+               await db.disconnect()
+               res.status(200).json({res:"Loan updated succesfully"})
+          })
+          .catch( async ()=>{
+               await db.disconnect()        
+               res.status(400).json({res:"Failed to update loan"} ) 
+          })
+     }
 })
 
-//******************         delete    ****************** */
-router.delete("/loans/:email/:id", async(req, res)=>{
-     await db.connect()
-     
-     await db.disconnect()
-
-
+// //******************         delete    ****************** */
+router.delete("/:id", async(req, res)=>{
+     const loanID =req.params.id
+     try{
+          await db.connect()
+          await loanCrud.deleteLoan(loanID)
+          await db.disconnect()
+          res.status(200).json({res:"loan deleted successfully"})
+     }catch(e){
+          res.status(400).json({res:"loan deletion failed"})
+     }
 })
-
-
 
 module.exports= router
