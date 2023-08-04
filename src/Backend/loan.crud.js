@@ -1,144 +1,85 @@
-const user= require("./user.model")
-const loan= require("./loan.model")
-const { default: mongoose } = require("mongoose")
+const loan = require("./loan.model");
+const { default: mongoose } = require("mongoose");
 
-async function addLoanToUser(email, 
-     type,expense, name, amount, interest_rate,term,
-      compouning_period)
+async function getAllLoans(){
+     return await loan.find({})
+          .then((data) => {
+               return data;
+          })
+          .catch(()=>{console.log("No loans exist")});
+}
+
+async function addLoan(email, 
+     type,expense, loanname, amount, interest_rate,term,
+      compounding_period)
+      
 {
-     await user.updateOne({"account.email":email},
-     {$push:{"loan":
-          new loan({
+     const loanName = await loan.find({"name": loanname});
+     if (loanName.length == 0) {
+          await new loan({
+               "email":email,
                "type":type,
                "expense":expense,
-               "name":name,
+               "name":loanname,
                "amount":amount,
                "interest_rate":interest_rate,
                "term":term,
-               "compouning_period":compouning_period
+               "compounding_period":compounding_period
           })
-     }}).then(()=>{
-          console.log(`added loan successfully to ${fname} ${lname}`)
-     })
-     .catch(()=>{
-          console.log("error adding loan to user")
-     })
-}
-
-async function readAll(email){
-     return await user.findOne(
-          {"account.email":email},
-     )
-     .then((data)=>{
-          console.log("successfully got the loan data for user")
-          return data.loan;
-
-     })
-     .catch(()=>{console.log("failed to find loan array")})
-}
-
-async function findByType(email, type){
-     let data=await readAll(email)    
-     let xx=[]
-     for(let i=0; i<data.length; i++){
-          if(data[i].type== type){
-               xx.push(data[i])
-          }
-     }
-     return(xx)
-}
-
-
-async function findByID(email, id){
-   
-     return await user.findOne(
-          {"account.email":email}
-     )
-     .then((data)=>{
-          for(let i =0; i<data.loan.length; i++){
-               if(data.loan[i]._id ==id){
-                    console.log("found the loan succesfully")
-                    return data.loan[i]    
-               }
-          }
-     })
-     .catch(()=>{
-          console.log("failed to get the loan by id")
-     })
-}
-
-// async function updateLoan(
-//      email,id,
-//      re_type, re_expense, re_name, re_amount, re_interestRate,re_term) {
-
-          
-//      await user.findOneAndUpdate(
-//        { "account.email": email,  "loan._id":id },
-//        {
-//          $set: {
-//            "loan.$.type": re_type,
-//            "loan.$.expense": re_expense,
-//            "loan.$.name": re_name,
-//            "loan.$.amount": re_amount,
-//            "loan.$.interest_rate": re_interestRate,
-//            "loan.$.term": re_term,
-//          },
-//        },
-//        {new:true}
-//      )  
-//        //   https://mongoosejs.com/docs/tutorials/findoneandupdate.html
-//      .then(() => {
-//        console.log("Updated successfully");
-//      }).catch((error) => {
-//        console.log("Failed to update loan:", error);
-//      })
-
-//      let x=await findByID(email)
-//      console.log(x) 
-// }
-async function updateLoan(
-     email, id,
-     re_type,re_expense,re_name,re_amount,re_interestRate,re_term) {
-
-     try {
-          let obj = await findByID(email, id);
-
-          // If obj is a Mongoose Document, use it directly
-          if (obj instanceof mongoose.Model) {
-          obj.type = re_type;
-          obj.expense = re_expense;
-          obj.name = re_name; // corrected property name from _name to name
-          obj.amount = re_amount;
-          obj.interest_rate = re_interestRate;
-          obj.term = re_term;
-
-          await obj.save();
-          console.log("Updated successfully");
-          } else {
-          console.log("Failed to update: Object not found or not a Mongoose Document.");
-          }
-
-     } catch (error) {
-          console.log("Failed to update loan:", error);
+          .save()
+          .then(()=>{
+               console.log(`added loan successfully to ${email}`);
+          })
+          .catch(()=>{
+               console.log("error adding loan to user");
+          })
+     } else {
+          console.log("Loan name already exists");
+          return -1;
      }
 }
 
-async function deleteLoan(email, id) {
+async function findByType(type, email){
+     return await loan.find({"type":type, "email":email})
+     .then((data) => {
+          console.log(data)
+          return data
+     }).catch(() => {console.log("No loans found")})
+}
 
-     
-     await user.findOneAndUpdate(
-          { "name.first": fname, "name.last": lname },
-          { $pull: { loan: { _id: id } } }
-     ).then((data) => {
-          console.log(data);
-     }).catch((error) => {
-          console.log("Failed to delete loan:", error);
-     });
+async function findByID(id) {
+     return await loan.findById(id)
+     .then((data) => {
+          console.log(data)
+          return data
+     }).catch(() => {console.log("No loans found")})
+}
+
+async function updateLoan(find_id, expense, loanname, amount, intrate, term, comp) {
+     const doc = await loan.findById(find_id);
+          doc.expense = expense;
+          doc.name = loanname;
+          doc.amount = amount;
+          doc.interest_rate =  intrate;
+          doc.term =  term;
+          doc.compounding_period = comp;
+     await doc.save()
+     .then(()=>{console.log("Updated loan successfully")})
+     .catch(()=>{console.log("Failed to update loan")})
+}
+
+async function deleteLoan(id){
+     await loan.deleteOne(
+          {"_id":id},
+          {justOne:true}
+          )
+     .then(()=>{console.log("successfully deleted loan")} )
+     .catch(()=>{console.log("failed to delete loan")})
 }
 
 module.exports={
-     addLoanToUser,
-     readAll,
+     getAllLoans,
+     addLoan,
      findByID,
      findByType,
      updateLoan,
