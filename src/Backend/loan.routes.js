@@ -48,7 +48,7 @@ router.get("/loans", async(req, res)=>{
 })
 
 // find by type 
-router.get("/:type&:email", async(req, res)=>{
+router.get("/:type/:email", async(req, res)=>{
      const type=req.params.type
      const email=req.params.email
      if(type== null || email==null){
@@ -64,6 +64,7 @@ router.get("/:type&:email", async(req, res)=>{
      }
 
      res.status(200).json({res:data})
+     
 })
 
 // find by id 
