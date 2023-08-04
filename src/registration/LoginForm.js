@@ -3,10 +3,13 @@ import { useFormik } from "formik";
 import axios, {AxiosError} from "axios";
 import {useState} from 'react';
 import { useSignIn } from 'react-auth-kit';
+import { useNavigate } from 'react-router-dom';
 
 function LoginForm() {
 
   const [error, setError] = useState("");
+
+  const navigate = useNavigate();
 
   const signIn = useSignIn();
 
@@ -29,6 +32,9 @@ function LoginForm() {
         tokenType: "Bearer",
         authState: {email: values.email},
       });
+
+      navigate("/");
+
 
     } catch (err) {
       if (err && err instanceof AxiosError)

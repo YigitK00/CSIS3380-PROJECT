@@ -2,22 +2,32 @@ import React from 'react';
 import { useFormik } from "formik";
 import axios, {AxiosError} from "axios";
 import {useState} from 'react';
+import { useNavigate } from 'react-router-dom';
+import { useSignIn } from 'react-auth-kit';
 
 function RegisterForm() {
   const [error, setError] = useState("");
-
+  const navigate = useNavigate();
+  const signIn = useSignIn();
   const onSubmit = async(values) => {
     console.log("Values: ", values);
     setError("");
 
     try {
-      await axios.post(
+      const response = await axios.post(
         "http://localhost:3000/register",
         values,
         {
           headers: {"Access-Control-Allow-Origin": true}
         },
       );
+      signIn({
+        token: response.data.token,
+        expiresIn: 1440, //cookie expires after 1 day
+        tokenType: "Bearer",
+        authState: {email: values.email},
+      });
+      navigate("/");
 
     } catch (err) {
       if (err && err instanceof AxiosError)
