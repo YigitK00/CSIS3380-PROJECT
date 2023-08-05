@@ -1,7 +1,6 @@
 const router= require('express').Router()
 const db= require("./db_connect")
 const loanCrud = require('./loan.crud')
-let loan = require('./loan.model')
 
 //******************         Create    ****************** */
 router.post("/newloan/", async (req, res)=>{
@@ -52,10 +51,11 @@ router.get("/loans", async(req, res)=>{
 router.get("/:type/:email", async(req, res)=>{
      const type=req.params.type
      const email=req.params.email
-     await loan.find({"type":type, "email":email})
-     .then((data) => {
-          console.log(data)
-          res.json(data)
+     await db.connect();
+     await loanCrud.findByType(type, email)
+     .then(async (data) => {
+          await db.disconnect()
+          res.status(200).json(data)
      }).catch(() => {console.log("No loans found")})
 })
 
@@ -68,13 +68,10 @@ router.get("/:id", async(req, res)=>{
 
      await db.connect()
      const data= await loanCrud.findByID(id)
-     await db.disconnect()
-     
-     if(data==null){
-          res.status(400).json({res:"no matches found"})
-     }
-
-     res.status(200).json({res:data})
+     .then(async (data) => {
+          await db.disconnect()
+          res.status(200).json(data)
+     }).catch(() => {console.log("No loans found")})
 })
 
 
