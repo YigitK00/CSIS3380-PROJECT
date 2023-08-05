@@ -1,4 +1,4 @@
-import React, { Component, useState, useEffect } from 'react';
+import React, { Component, useState } from 'react';
 import axios from "axios";
 // import CanvasJSReact from '@canvasjs/react-charts';
 // //var CanvasJSReact = require('@canvasjs/react-charts');
@@ -71,24 +71,25 @@ import axios from "axios";
 //     );
 //   }
 // }
-const userEmail = () => {
-  const value = `${document.cookie}`;
-  const regex = /%22(.*)%22/g; // The actual regex
-  const matches = regex.exec(value);
-  const text =  matches[1];
-  const textArray = text.split("%22:%22");
-
-  return textArray[1];
-}
-
-const loanType = "Personal";
-
-const url = `http://localhost:3000/${loanType}/${userEmail()}`;
 
 function PersonalLoans() {
 
+  const userEmail = () => {
+    const value = `${document.cookie}`;
+    const regex = /%22(.*)%22/g; // The actual regex
+    const matches = regex.exec(value);
+    const text =  matches[1];
+    const textArray = text.split("%22:%22");
+  
+    return textArray[1];
+  }
+  
+  const loanType = "Personal";
+  
+  const url = `http://localhost:3000/${loanType}/${userEmail()}`;
+
   const [loans, setLoans] = useState([]);
-  useEffect(() => {
+  useState(() => {
     axios
     .get(
       url

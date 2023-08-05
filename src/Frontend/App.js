@@ -16,17 +16,13 @@ const App = () => (
   <div className="wrapper">
     <Header />
     <Routes>
+      <Route path="/login" element={<LoginForm />} /> 
       <Route path="/" element={<Home/>} />
       <Route path="/about" element={<About />} />
       <Route path="/contact" element={<Contact />} />
       <Route path="/support" element={<Support />} />
-      <Route path="/login" element={<LoginForm />} />
       <Route path="/register" element={<RegisterForm />} />
-      <Route path="/personal-loans" element={<RequireAuth><PersonalLoans /></RequireAuth>} />
-      {/* <Route path="/business-loans" element={<RequireAuth><BusinessLoans /></RequireAuth>} />
-      <Route path="/car-loans" element={<RequireAuth><CarLoans /></RequireAuth>} />
-      <Route path="/mortgage-loans" element={<RequireAuth><MortgageLoans /></RequireAuth>} />
-      <Route path="/consolidation-loans" element={<RequireAuth><ConsolidationLoans /></RequireAuth>} /> */}
+      <Route path="/personal-loans" element={<RequireAuth loginPath={'/login'}><PersonalLoans /></RequireAuth>} />
     </Routes>
   </div>
 );

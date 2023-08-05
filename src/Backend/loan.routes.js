@@ -54,7 +54,6 @@ router.get("/:type/:email", async(req, res)=>{
      await db.connect();
      await loanCrud.findByType(type, email)
      .then(async (data) => {
-          await db.disconnect()
           res.status(200).json(data)
      }).catch(() => {console.log("No loans found")})
 })
@@ -67,9 +66,8 @@ router.get("/:id", async(req, res)=>{
      }
 
      await db.connect()
-     const data= await loanCrud.findByID(id)
+     await loanCrud.findByID(id)
      .then(async (data) => {
-          await db.disconnect()
           res.status(200).json(data)
      }).catch(() => {console.log("No loans found")})
 })
