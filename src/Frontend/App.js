@@ -16,13 +16,13 @@ const App = () => (
   <div className="wrapper">
     <Header />
     <Routes>
+      <Route path="/personal-loans" element={<RequireAuth loginPath={'/login'}><PersonalLoans /></RequireAuth>} />
       <Route path="/login" element={<LoginForm />} /> 
       <Route path="/" element={<Home/>} />
       <Route path="/about" element={<About />} />
       <Route path="/contact" element={<Contact />} />
       <Route path="/support" element={<Support />} />
       <Route path="/register" element={<RegisterForm />} />
-      <Route path="/personal-loans" element={<RequireAuth loginPath={'/login'}><PersonalLoans /></RequireAuth>} />
     </Routes>
   </div>
 );
