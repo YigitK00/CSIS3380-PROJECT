@@ -21,6 +21,12 @@ const PrivateRoute = ({ Component }) => {
   return auth ? <Component /> : <Navigate to="/login" />;
 };
 
+const LoggedIn = ({Component}) => {
+  const isAuthenticated = useIsAuthenticated();
+  const auth = isAuthenticated();
+  return auth ? <Navigate to ="/" />: <Component/> ;
+}
+
 const App = () => (
   <AuthProvider
       authType={"cookie"}
@@ -36,8 +42,8 @@ const App = () => (
           <Route path="/about" element={<About />} />
           <Route path="/contact" element={<Contact />} />
           <Route path="/support" element={<Support />} />
-          <Route path="/login" element={<LoginForm />} /> 
-          <Route path="/register" element={<RegisterForm />} />
+          <Route path="/login" element={< LoggedIn Component={LoginForm} />} /> 
+          <Route path="/register" element={< LoggedIn Component={RegisterForm} />} />
           <Route path="/personal-loans" element={<PrivateRoute Component={PersonalLoans} />} />
         </Routes>
       </div>
