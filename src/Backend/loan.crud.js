@@ -1,5 +1,4 @@
 const loan = require("./loan.model");
-const { default: mongoose } = require("mongoose");
 
 async function getAllLoans(){
      return await loan.find({})
