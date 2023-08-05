@@ -7,10 +7,12 @@ const jwt = require('jsonwebtoken');
 
 router.get("/",async(req, res)=>{
      await db.connect();
-     const users = await crud.getAllUsers();
-     await db.disconnect();
-          res.status(200).json({res:users});
+     await crud.getAllUsers()
+     .then(async (data) => {
+          res.status(200).json(data)
+     }).catch(() => {console.log("No users found")})
 })
+
 router.get("/dumpDB",async (req, res)=>{
      try{
           await db.connect()
@@ -47,23 +49,21 @@ router.post("/login", async (req, res) => {
      
      
      //Generating jwt token
-     const jwtToken = jwt.sign(
+     const jwtToken = await jwt.sign(
           { id: userWithEmail[0].id, email: userWithEmail[0].account.email },
           "CSIS3380" //Will be replaced with process.env.JWT_SECRET
-     );
+     )
      
-     await db.disconnect();
      console.log(jwtToken);
-     res
+     return res
           .json({message: "Welcome to loanwolf!", token: jwtToken})
-          .redirect("back")
 });
 
 //insert a newly registered user, so lName, fName, email, password
 router.post("/register",async (req, res)=>{
      if(req.body.first==null ||req.body.last==null||req.body.email==null||req.body.password==null
           ){
-          res.status(400).json({res:"need to add first and last name with email and passwordd "})     
+          res.status(400).json({res:"need to add first and last name with email and password "})     
      }else{
           
           await db.connect()
@@ -74,13 +74,11 @@ router.post("/register",async (req, res)=>{
                )
           
           if(value ==-1){
-               await db.disconnect()
                res.status(400).json({res:"email in use "})
                return
           }
-          await db.disconnect()
 
-          res.status(200).json({res:"added user "})
+          return res.status(200).json({res:"added user "})
      }
 })
 
@@ -101,8 +99,7 @@ router.get("/user/:first&:last", async (req, res)=>{
 
           // console.log("user found\n"+user)
  
-          await db.disconnect()
-          res.status(200).json({res:user})
+          return res.status(200).json({res:user})
      }
 })
 
@@ -126,11 +123,9 @@ router.put("/user/:first&:last", async (req, res)=>{
                find_fName,find_lName,re_fName,re_lName,re_email,re_password,
           )
           .then( async ()=>{
-               await db.disconnect()
                res.status(200).json({res:"updates the user succesfully"})
           })
-          .catch( async ()=>{
-               await db.disconnect()        
+          .catch( async ()=>{     
                res.status(400).json({res:"failed to update the user"} ) 
           })
 
@@ -153,7 +148,6 @@ router.delete("/user/:first&:last", async(req, res)=>{
           try{
                await db.connect()
                await crud.deleteUserByFLName(fname, lname)
-               await db.disconnect()
                res.status(200).json({res:"delete user successful"})
           }catch(e){
                res.status(400).json({res:"delete user failed"})
