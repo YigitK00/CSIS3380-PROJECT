@@ -33,7 +33,8 @@ function LoginForm() {
         authState: {email: values.email},
       });
 
-      navigate("/");
+      navigate("/")
+      location.reload();
 
 
     } catch (err) {

@@ -7,9 +7,6 @@ const xx=mongoose.Schema({
      //id auto gen 
      "name":{"first":String , "last":String},    //general info     
      "account": {"email":String, "password":String},   //account // scramble user password //https://www.npmjs.com/package/bcrypt
-     "loan":[
-        
-     ]
 })
 
 const user= mongoose.model("user",xx)

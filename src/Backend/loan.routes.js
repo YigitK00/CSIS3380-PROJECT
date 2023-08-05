@@ -21,7 +21,7 @@ router.post("/newloan/", async (req, res)=>{
           type== null|| name== null||amount== null|| interest_rate== null||
           term== null|| compounding_period== null|| expense== null
           ){
-          res.status(400).json({res:`need to have the following values: fname lname type name amount interest_rate term compounindg_period expense ex: { "type":"personal loan","name": "education", "amount": 1500,"interest_rate": 5.4,"term": 12,"compounind_period":3, "expense":true}`
+          res.status(400).json({res:`need to have the following values: fname lname type name amount interest_rate term compounding_period expense ex: { "type":"personal loan","name": "education", "amount": 1500,"interest_rate": 5.4,"term": 12,"compounind_period":3, "expense":true}`
           })
      }else{
           try{
@@ -62,9 +62,8 @@ router.get("/:type/:email", async(req, res)=>{
 router.get("/:id", async(req, res)=>{
      const id=req.params.id
      if(id == null){
-          res.status(400).json({res:"need loan email"})
+          res.status(400).json({res:"need loan id"})
      }
-
      await db.connect()
      await loanCrud.findByID(id)
      .then(async (data) => {
