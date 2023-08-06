@@ -106,7 +106,7 @@ function BusinessLoans() {
   
   const deleteLoan = (id) => {
     axios
-      .post('http://localhost:4000/delete/' + id)
+      .delete('http://localhost:4000/' + id)
       .then((response) => {
         console.log(response.data);
       })
@@ -114,13 +114,11 @@ function BusinessLoans() {
         console.log(err);
       });
 
-      window.location.reload();
-
-    // setTodoList(todos.filter((el) => el._id !== id));
+      setLoans(loans.filter((loan) => loan._id !== id));
   };
 
   const editLoan = (id) => {
-    window.location = '/update/' + id;
+    window.location = '/' + id;
   };
 
 
