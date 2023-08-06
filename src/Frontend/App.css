@@ -124,6 +124,7 @@ LOGIN and SIGN-UP FORM
 
 .form-container {
   display: flex;
+  flex-direction: column;
   justify-content: center;
   align-items: center;
   height: 15vh;
@@ -135,7 +136,7 @@ LOGIN and SIGN-UP FORM
 }
 
 form {
-  border: 2px solid #000;
+  /* border: 2px solid #000; */
   width: 25%;
   height: 30vh;
 }

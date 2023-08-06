@@ -20,6 +20,9 @@ const Navigation = () => (
     </li>
     <br />
     <hr />
+    <li>
+      <NavLink to="/newloan">+ Create a New Loan</NavLink>
+    </li>
   </ul>
 );
 
