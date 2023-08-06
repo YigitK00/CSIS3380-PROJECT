@@ -20,7 +20,7 @@ function NewLoan() {
     console.log('Values: ', values);
 
     try {
-      await axios.post('http://localhost:3000/newloan', values, {
+      await axios.post('http://localhost:4000/newloan', values, {
         headers: { 'Access-Control-Allow-Origin': true },
       });
       navigate('/');
@@ -114,6 +114,7 @@ function NewLoan() {
           <button type="submit" className="signup-button">
             Create Loan
           </button>
+          {error && <p>{error}</p>}
         </div>
       </form>
     </div>

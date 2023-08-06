@@ -2,14 +2,14 @@ const express= require("express");
 const bodyParser= require("body-parser");
 const app= express();
 const cors = require('cors');
-const port=process.env.PORT || 3000;
+const port=process.env.PORT || 4000;
 
 app.use(bodyParser.urlencoded({extended:true}));
 app.use(express.json());
 
-app.options("*", cors({ origin: 'http://localhost:3001', optionsSuccessStatus: 200 }));
+app.options("*", cors({ origin: 'http://localhost:3000', optionsSuccessStatus: 200 }));
 
-app.use(cors({ origin: "http://localhost:3001", optionsSuccessStatus: 200 }));
+app.use(cors({ origin: "http://localhost:3000", optionsSuccessStatus: 200 }));
 
 const crud_user= require("./user.routes");
 app.use("/",crud_user);
