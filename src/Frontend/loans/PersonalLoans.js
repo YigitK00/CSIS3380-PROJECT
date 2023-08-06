@@ -121,7 +121,7 @@ function PersonalLoans() {
 
   const deleteLoan = (id) => {
     axios
-      .delete('http://localhost:4000/delete/' + id)
+      .delete('http://localhost:4000/' + id)
       .then((response) => {
         console.log(response.data);
       })
@@ -129,9 +129,7 @@ function PersonalLoans() {
         console.log(err);
       });
 
-      window.location.reload();
-
-    // setTodoList(todos.filter((el) => el._id !== id));
+      setLoans(loans.filter((loan) => loan._id !== id));
   };
 
   const editLoan = (id) => {
