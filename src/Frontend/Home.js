@@ -6,19 +6,19 @@ function Home() {
       const value = `${document.cookie}`;
       const regex = /%22(.*)%22/g; // The actual regex
       const matches = regex.exec(value);
-      const text =  matches[1];
-      const textArray = text.split("%22:%22");
-  
-      return ", " + textArray[1] + "!";
+      const text = matches[1];
+      const textArray = text.split('%22:%22');
+
+      return ', ' + textArray[1] + '!';
     } else {
-      return "!";
+      return '!';
     }
-  }
+  };
   return (
-    <div >
+    <div className="main-content home">
       <p>Welcome Back{userEmail()}</p>
-    </div> 
-  )
-};
+    </div>
+  );
+}
 
 export default Home;

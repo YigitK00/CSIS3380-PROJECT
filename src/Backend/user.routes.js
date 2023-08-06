@@ -41,11 +41,18 @@ router.post("/login", async (req, res) => {
           return res
                .status(400)
                .json({message: "Email or password does not match!"});
-     
-     if(userWithEmail[0].account.password !== password)
+     try{
+          if(userWithEmail[0].account.password !== password)
+               return res
+                    .status(400)
+                    .json({message: "Email or password does not match!"});
+     }catch(e ){
+          if(userWithEmail[0][0].account.password !== password)
           return res
                .status(400)
                .json({message: "Email or password does not match!"});
+
+     }
      
      
      //Generating jwt token

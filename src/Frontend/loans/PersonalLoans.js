@@ -58,7 +58,7 @@ function PersonalLoans() {
   };
 
   return (
-    <div >
+    <div  class="container">
       {loans.map(oneLoan=>{
           let _amount= Math.round( ((oneLoan.interest_rate/100/12*oneLoan.compounding_period)*oneLoan.amount)+oneLoan.amount) ; 
 

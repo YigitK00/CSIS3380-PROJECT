@@ -1,3 +1,38 @@
+
+
+
+/*------------
+Loan Card
+------------*/
+.card{
+  background-color: #f8fcff;
+  margin: 4% 2% 2% 5%;
+  padding: 4%;
+  display:inline-flex;
+  width: 33%;
+
+  border-style:dashed;
+  
+}
+.card h2{
+  text-align: center;
+  text-decoration: underline;
+}
+.card button{
+  margin-left: 15%;
+  margin-right: 5%;
+  display:inline-block;
+  margin-top: 2%;
+}
+.container{
+  background-color: rgb(244, 247, 234);
+}
+
+
+
+
+
+
 * {
   box-sizing: border-box;
   margin: 0;
@@ -7,6 +42,7 @@
 
 body {
   background-color: #f2f3f5;
+  margin-left: 0;
 }
 
 .logo {
@@ -14,9 +50,9 @@ body {
   height: 6em;
 }
 
-/*-----------------------
-HORIZONTAL NAVIGATION BAR
------------------------*/
+/*------------
+NAVIGATION BAR
+------------*/
 
 h1 {
   position: relative;
@@ -93,29 +129,58 @@ LOGIN and SIGNUP Buttons
   color: #fff;
 }
 
-/*---------------------
-VERTICAL NAVIGATION BAR
----------------------*/
-
-.menu-links {
+/*-----------------
+SIDE NAVIGATION BAR
+-----------------*/
+.side-nav {
+  height: 100%;
+  width: 0;
+  background-color: #4e4e4e;
   list-style-type: none;
-  margin: 0;
-  padding-top: 15px;
-  width: 220px;
-  background-color: #f2f3f5;
+  position: fixed;
+  z-index: 1;
+  top: 0;
+  left: 0;
+  overflow-x: hidden;
+  transition: 0.5;
+  padding-top: 50px;
+}
+
+.side-nav.open {
+  width: 240px;
+}
+
+.open-btn {
+  font-size: 30px;
+  cursor: pointer;
+  transition: 0.2s ease-in-out;
+}
+
+.close-btn {
+  position: absolute;
+  top: 0;
+  right: 15px;
+  font-size: 38px;
+  text-decoration: none;
+  color: #fff;
+  transition: 0.2s ease-in-out;
+}
+
+.close-btn:hover,
+.open-btn:hover {
+  color: #0096ff;
 }
 
 .menu-links a {
   display: block;
-  color: #000;
+  color: #fff;
   padding: 12px 18px;
   text-decoration: none;
   transition: 0.3s ease-in-out;
 }
 
 .menu-links a:hover {
-  background-color: #ccc;
-  color: #000;
+  color: #0096ff;
 }
 
 /*--------------------
@@ -146,7 +211,9 @@ form label {
 }
 
 form input[type='text'],
-input[type='password'] {
+input[type='password'],
+input[type='number'],
+select {
   padding: 12px 10px;
   margin: 8px 0;
   display: inline-block;
@@ -176,4 +243,91 @@ form input[type='checkbox'] {
 .signup-button:hover,
 .signup-button:active {
   color: #fff;
+}
+
+/*-----------
+NEW LOAN FORM
+-----------*/
+
+.loanf-container {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  height: 35vh;
+}
+
+.loan-f {
+  width: 17%;
+}
+
+.loan-form select {
+  cursor: pointer;
+  background-image: url('./arrow-down.png');
+  background-color: #fff;
+  color: #000;
+  background-size: 40px;
+  background-repeat: no-repeat;
+  background-position: 285px center;
+  appearance: none;
+}
+
+/*----
+FOOTER
+----*/
+
+footer {
+  background-color: #fff;
+  position: fixed;
+  bottom: 0;
+  width: 100%;
+  padding: 50px;
+  text-align: center;
+}
+
+footer p {
+  display: flex;
+  font-size: 16px;
+  font-weight: 400;
+  color: #000;
+  align-items: center;
+  justify-content: center;
+}
+
+footer ul {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  list-style: none;
+  padding-top: 15px;
+}
+
+footer ul li {
+  display: inline;
+}
+
+footer a {
+  text-decoration: none;
+  font-weight: bold;
+  font-size: 16px;
+}
+
+footer a {
+  padding: 10px;
+  color: #000;
+}
+
+a:hover,
+a:active {
+  color: #0096ff;
+}
+
+/*-------------
+NAVBAR CONTENTS
+-------------*/
+
+.main-content {
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
