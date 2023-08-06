@@ -107,7 +107,7 @@ function CarLoans() {
 
   const deleteLoan = (id) => {
     axios
-      .delete('http://localhost:4000/activity/delete/' + id)
+      .delete('http://localhost:4000/delete/' + id)
       .then((response) => {
         console.log(response.data);
       });
@@ -116,7 +116,7 @@ function CarLoans() {
   };
 
   const editLoan = (id) => {
-    window.location = '/' + id;
+    window.location = '/update/' + id;
   };
 
   return (

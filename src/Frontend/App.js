@@ -83,7 +83,7 @@ const App = () => (
             element={<PrivateRoute Component={NewLoan} />}
           />
           <Route
-            path="/:id"
+            path="/update/:id"
             element={<PrivateRoute Component={UpdateLoan} />}
           />
         </Routes>
