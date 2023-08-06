@@ -27,7 +27,7 @@ function NewLoan() {
             },
         );
         navigate("/");
-        location.reload();
+        window.location.reload();
 
         } catch (err) {
         if (err && err instanceof AxiosError)
