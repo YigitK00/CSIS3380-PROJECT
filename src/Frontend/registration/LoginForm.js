@@ -34,7 +34,7 @@ function LoginForm() {
       });
 
       navigate("/")
-      location.reload();
+      window.location.reload();
 
 
     } catch (err) {

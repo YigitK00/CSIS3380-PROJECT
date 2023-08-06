@@ -2,6 +2,7 @@ import React from 'react';
 import { useFormik } from "formik";
 import axios, {AxiosError} from "axios";
 import { useNavigate } from 'react-router-dom';
+import {useState} from 'react';
 
 function NewLoan() {
     const userEmail = () => {
@@ -14,7 +15,7 @@ function NewLoan() {
         return textArray[1];
       }
     const navigate = useNavigate();
-
+    const [error, setError] = useState("");
     const onSubmit = async(values) => {
         console.log("Values: ", values);
 
@@ -27,7 +28,7 @@ function NewLoan() {
             },
         );
         navigate("/");
-        location.reload();
+        window.location.reload();
 
         } catch (err) {
         if (err && err instanceof AxiosError)

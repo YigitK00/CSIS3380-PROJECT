@@ -1,5 +1,6 @@
 import React, { Component, useState } from 'react';
 import axios from "axios";
+import LoanCard from '../Util/LoanCard';
 // import CanvasJSReact from '@canvasjs/react-charts';
 // //var CanvasJSReact = require('@canvasjs/react-charts');
 
@@ -72,7 +73,7 @@ import axios from "axios";
 //   }
 // }
 
-function BusinessLoans() {
+function ConsolidationLoans() {
 
   const userEmail = () => {
     const value = `${document.cookie}`;
@@ -84,7 +85,7 @@ function BusinessLoans() {
     return textArray[1];
   }
   
-  const loanType = "Business";
+  const loanType = "Consolidation";
   
   const url = `http://localhost:3000/${loanType}/${userEmail()}`;
 
@@ -102,14 +103,42 @@ function BusinessLoans() {
     });
   }, []);
 
+  const deleteLoan = (id) => {
+    axios
+      .delete('http://localhost:5000/activity/delete/' + id)
+      .then((response) => {
+        console.log(response.data);
+      });
+
+    // setTodoList(todos.filter((el) => el._id !== id));
+  };
+
+  const editLoan = (id) => {
+    window.location = '/update/' + id;
+  };
+
+
+
   return (
-    <div>
-      {/* {loans.map((loan) => {
-        return JSON.stringify(loan)
-      })} */}
-      {JSON.stringify(loans)}
+    <div >
+      {loans.map(oneLoan=>{
+          let _amount= Math.round( ((oneLoan.interest_rate/100/12*oneLoan.compounding_period)*oneLoan.amount)+oneLoan.amount) ; 
+
+          return <LoanCard 
+            id={oneLoan.email}
+            edit={editLoan}
+            delete={deleteLoan}
+
+            name={oneLoan.name}
+            amount={oneLoan.amount}
+            interest_rate={oneLoan.interest_rate}
+            due_in={oneLoan.term}
+            life_time_cost={_amount}
+          />
+      })}
     </div>
-  )
+  );
 }
 
-export default BusinessLoans;
+
+export default ConsolidationLoans;
