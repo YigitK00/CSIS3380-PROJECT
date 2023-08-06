@@ -16,7 +16,7 @@ function Home() {
   };
   return (
     <div className="main-content home">
-      <p>Welcome Back{userEmail()}</p>
+      <h1 className="heading">Welcome Back{userEmail()}</h1>
     </div>
   );
 }

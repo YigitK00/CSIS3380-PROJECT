@@ -44,8 +44,6 @@ Loan Card
   background-color: rgb(244, 247, 234);
 }
 
-
-
 html {
   height: 100%;
 }
@@ -67,6 +65,10 @@ body {
 .logo {
   padding-left: 2em;
   height: 6em;
+}
+
+.heading {
+  text-align: center;
 }
 
 /*------------
