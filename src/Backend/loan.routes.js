@@ -74,7 +74,7 @@ router.get("/:id", async(req, res)=>{
 
 //******************         update    ****************** */
 
-router.put("/update/:id", async (req, res) => {
+router.put("/:id", async (req, res) => {
      find_id = req.params.id
      //replace values
      re_expense=req.body.expense
@@ -96,26 +96,21 @@ router.put("/update/:id", async (req, res) => {
                find_id, re_expense, re_name, re_amount, re_intrate, re_term, re_comp
           )
           .then( async ()=>{
-               await db.disconnect()
                res.status(200).json({res:"Loan updated succesfully"})
           })
-          .catch( async ()=>{
-               await db.disconnect()        
+          .catch( async ()=>{    
                res.status(400).json({res:"Failed to update loan"} ) 
           })
      }
 })
 
 // //******************         delete    ****************** */
-router.post("/delete/:id", async(req, res)=>{
+router.delete("/:id", async(req, res)=>{
      const loanID =req.params.id
-     try{
-          await db.connect()
-          await loanCrud.deleteLoan(loanID)
-          res.status(200).json({res:"loan deleted successfully"})
-     }catch(e){
-          res.status(400).json({res:"loan deletion failed"})
-     }
-})
+     await db.connect()
+     await loanCrud.deleteLoan(loanID)
+          .then(() => res.json('Loan deleted.'))
+          .catch((err) => res.status(400).json('Error: ' + err));
+});
 
 module.exports= router
