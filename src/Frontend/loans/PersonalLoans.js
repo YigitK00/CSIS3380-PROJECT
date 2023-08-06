@@ -16,15 +16,20 @@ let fakeDB=[
 // var CanvasJS = CanvasJSReact.CanvasJS;
 var CanvasJSChart = CanvasJSReact.CanvasJSChart;
 
-var dataPoints = [];
 class PersonalLoansChart extends Component {
   render() {
+    const {chartTitle, paymentType } = this.props;
+
+
+
+      console.log(chartTitle)
     const options = {
       animationEnabled: true,
       exportEnabled: true,
       theme: 'light2', // "light1", "dark1", "dark2"
       title: {
-        text: 'Bounce Rate by Week of Year',
+        // text: 'se the titile of the chart ',
+        // text: 'se the titile of the chart ',
       },
       axisY: {
         title: 'Bounce Rate',
@@ -70,8 +75,9 @@ class PersonalLoansChart extends Component {
     };
 
     return (
-      <div>
-        <h1>React Line Chart</h1>
+      <div class="chart">
+        <h1>Weeks to pay off {chartTitle} Loan</h1>
+        <h4>Using {paymentType} Payment</h4>
         <CanvasJSChart
           options={options}
           /* onRef={ref => this.chart = ref} */
@@ -81,9 +87,6 @@ class PersonalLoansChart extends Component {
     );
   }
 }
-
-
-
 
 function PersonalLoans() {
 
@@ -96,12 +99,13 @@ function PersonalLoans() {
   
     return textArray[1];
   }
-  
+
   const loanType = "Personal";
-  
+
   const url = `http://localhost:3000/${loanType}/${userEmail()}`; // this is defined in the loan.routes. 
 
   const [loans, setLoans] = useState([]); // this is the storage for the data
+
   useState(() => {
     axios
     .get(
@@ -115,8 +119,6 @@ function PersonalLoans() {
     });
   }, []);
 
-
-  
   const deleteLoan = (id) => {
     axios
       .delete('http://localhost:5000/activity/delete/' + id)
@@ -131,12 +133,17 @@ function PersonalLoans() {
     window.location = '/update/' + id;
   };
 
+  let numCard=0;
+
   return (
   <div  class="container">
       i am here 
       <br/>
-      {fakeDB.map(oneLoan=>{
+      {
+        
+      fakeDB.map(oneLoan=>{
           let _amount= Math.round( ((oneLoan.interest_rate/100/12*oneLoan.compounding_period)*oneLoan.amount)+oneLoan.amount) ; 
+          numCard+=1
 
           return <LoanCard 
             id={oneLoan.email}
@@ -152,8 +159,10 @@ function PersonalLoans() {
       })}
 
       <PersonalLoansChart 
+        chartTitle={loanType} 
+        paymentType="minimal"
 
-      />
+    />
     </div>
   );
 }
