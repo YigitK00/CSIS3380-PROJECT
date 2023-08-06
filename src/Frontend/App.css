@@ -1,4 +1,20 @@
 
+/*--------------------
+loan Chart
+--------------------*/
+.chart h1 {
+  text-align: center;
+  margin-top: 5%;
+  margin-bottom: 2%;
+}
+.chart h4{
+  text-align: center;
+}
+
+.chart{
+  background-color: white;
+}
+
 
 
 /*------------
@@ -80,7 +96,8 @@ h1 {
 .nav-links li {
   position: relative;
   background-color: #fff;
-  list-style: none;
+  list-style-type: none;
+
 }
 
 .nav-links li a {
@@ -281,7 +298,8 @@ FOOTER
 
 footer {
   background-color: #fff;
-  position: fixed;
+  /* position: fixed; */
+  margin-top: 10%;
   bottom: 0;
   width: 100%;
   padding: 50px;

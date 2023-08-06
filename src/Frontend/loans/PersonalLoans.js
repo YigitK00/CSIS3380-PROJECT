@@ -2,6 +2,92 @@ import React, { Component, useState } from 'react';
 import axios from "axios";
 import LoanCard from '../Util/LoanCard';
   
+import CanvasJSReact from '@canvasjs/react-charts';
+
+
+let fakeDB=[
+  {"email":"ryarwood0@ed.gov","type":"","expense":false,"name":"personal loan","amount":3242,"interest_rate":5,"term":21,"compounding_period":10},
+  {"email":"dstill1@examiner.com","type":"","expense":false,"name":"personal loan","amount":4330,"interest_rate":4,"term":32,"compounding_period":7},
+  {"email":"zjorio9@g.co","type":"","expense":true,"name":"personal loan","amount":4883,"interest_rate":5,"term":44,"compounding_period":9}
+]
+
+
+
+// var CanvasJS = CanvasJSReact.CanvasJS;
+var CanvasJSChart = CanvasJSReact.CanvasJSChart;
+
+class PersonalLoansChart extends Component {
+  render() {
+    const {chartTitle, paymentType } = this.props;
+
+
+
+      console.log(chartTitle)
+    const options = {
+      animationEnabled: true,
+      exportEnabled: true,
+      theme: 'light2', // "light1", "dark1", "dark2"
+      title: {
+        // text: 'se the titile of the chart ',
+        // text: 'se the titile of the chart ',
+      },
+      axisY: {
+        title: 'Bounce Rate',
+        includeZero: false,
+        suffix: '%',
+      },
+      axisX: {
+        title: 'Week of Year',
+        prefix: 'W',
+        interval: 2,
+      },
+      data: [
+        {
+          type: 'line',
+          toolTipContent: 'Week {x}: {y}%',
+          dataPoints: [
+            { x: 1, y: 64 },
+            { x: 2, y: 61 },
+            { x: 3, y: 64 },
+            { x: 4, y: 62 },
+            { x: 5, y: 64 },
+            { x: 6, y: 60 },
+            { x: 7, y: 58 },
+            { x: 8, y: 59 },
+            { x: 9, y: 53 },
+            { x: 10, y: 54 },
+            { x: 11, y: 61 },
+            { x: 12, y: 60 },
+            { x: 13, y: 55 },
+            { x: 14, y: 60 },
+            { x: 15, y: 56 },
+            { x: 16, y: 60 },
+            { x: 17, y: 59.5 },
+            { x: 18, y: 63 },
+            { x: 19, y: 58 },
+            { x: 20, y: 54 },
+            { x: 21, y: 59 },
+            { x: 22, y: 64 },
+            { x: 23, y: 59 },
+          ],
+        },
+      ],
+    };
+
+    return (
+      <div class="chart">
+        <h1>Weeks to pay off {chartTitle} Loan</h1>
+        <h4>Using {paymentType} Payment</h4>
+        <CanvasJSChart
+          options={options}
+          /* onRef={ref => this.chart = ref} */
+        />
+        {/*You can get reference to the chart instance as shown above using onRef. This allows you to access all chart properties and methods*/}
+      </div>
+    );
+  }
+}
+
 function PersonalLoans() {
 
   const userEmail = () => {
@@ -13,12 +99,13 @@ function PersonalLoans() {
   
     return textArray[1];
   }
-  
+
   const loanType = "Personal";
   
   const url = `http://localhost:4000/${loanType}/${userEmail()}`; // this is defined in the loan.routes. 
 
   const [loans, setLoans] = useState([]); // this is the storage for the data
+
   useState(() => {
     axios
     .get(
@@ -31,7 +118,7 @@ function PersonalLoans() {
       console.log(err);
     });
   }, []);
-  
+
   const deleteLoan = (id) => {
     axios
       .delete('http://localhost:4000/delete/' + id)
@@ -51,10 +138,17 @@ function PersonalLoans() {
     window.location = '/update/' + id;
   };
 
+  let numCard=0;
+
   return (
-    <div  class="container">
-      {loans.map(oneLoan=>{
+  <div  class="container">
+      i am here 
+      <br/>
+      {
+        
+      fakeDB.map(oneLoan=>{
           let _amount= Math.round( ((oneLoan.interest_rate/100/12*oneLoan.compounding_period)*oneLoan.amount)+oneLoan.amount) ; 
+          numCard+=1
 
           return <LoanCard 
             id={oneLoan._id}
@@ -68,6 +162,12 @@ function PersonalLoans() {
             life_time_cost={_amount}
           />
       })}
+
+      <PersonalLoansChart 
+        chartTitle={loanType} 
+        paymentType="minimal"
+
+    />
     </div>
   );
 }
