@@ -5,7 +5,7 @@ import { useNavigate } from 'react-router-dom';
 import { useState } from 'react';
 
 function UpdateLoan() {
-    const id = window.location.pathname
+  const id = window.location.pathname
 
   const navigate = useNavigate();
   const [error, setError] = useState('');

@@ -67,10 +67,6 @@ const App = () => (
             element={<PrivateRoute Component={BusinessLoans} />}
           />
           <Route
-            path="/business-loans"
-            element={<PrivateRoute Component={BusinessLoans} />}
-          />
-          <Route
             path="/mortgage-loans"
             element={<PrivateRoute Component={MortgageLoans} />}
           />
