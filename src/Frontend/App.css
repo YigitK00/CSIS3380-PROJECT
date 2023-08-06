@@ -77,7 +77,8 @@ h1 {
 .nav-links li {
   position: relative;
   background-color: #fff;
-  list-style: none;
+  list-style-type: none;
+
 }
 
 .nav-links li a {
@@ -278,7 +279,7 @@ FOOTER
 
 footer {
   background-color: #fff;
-  position: fixed;
+  /* position: fixed; */
   bottom: 0;
   width: 100%;
   padding: 50px;
