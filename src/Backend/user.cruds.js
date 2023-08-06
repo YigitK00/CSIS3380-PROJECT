@@ -49,7 +49,7 @@ async function findByName(first, last){
 }
 
 async function findByEmail(email){
-     return await model.find({"account.email":email})
+     return await model.findOne({"account.email":email})
      .then((data) => {
           console.log(data)
           return data
