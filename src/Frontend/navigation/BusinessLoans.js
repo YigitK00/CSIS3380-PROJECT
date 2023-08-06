@@ -1,5 +1,6 @@
 import React, { Component, useState } from 'react';
 import axios from "axios";
+import LoanCard from '../Util/LoanCard';
 // import CanvasJSReact from '@canvasjs/react-charts';
 // //var CanvasJSReact = require('@canvasjs/react-charts');
 
@@ -102,14 +103,32 @@ function BusinessLoans() {
     });
   }, []);
 
+  
   return (
-    <div>
-      {/* {loans.map((loan) => {
-        return JSON.stringify(loan)
-      })} */}
+    <div >
+      {loans.map(oneLoan=>{
+          let _amount= Math.round( ((oneLoan.interest_rate/100/12*oneLoan.compounding_period)*oneLoan.amount)+oneLoan.amount) ; 
+  
+          return <LoanCard 
+            id={oneLoan.email}
+            edit={editLoan}
+            delete={deleteLoan}
+  
+            name={oneLoan.name}
+            amount={oneLoan.amount}
+            interest_rate={oneLoan.interest_rate}
+            due_in={oneLoan.term}
+            life_time_cost={_amount}
+          />
+      })}
       {JSON.stringify(loans)}
+  
     </div>
-  )
-}
+  );
+  }
+  
+
+
+
 
 export default BusinessLoans;

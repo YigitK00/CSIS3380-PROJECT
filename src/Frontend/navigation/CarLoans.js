@@ -1,5 +1,6 @@
 import React, { Component, useState } from 'react';
 import axios from "axios";
+import LoanCard from '../Util/LoanCard';
 // import CanvasJSReact from '@canvasjs/react-charts';
 // //var CanvasJSReact = require('@canvasjs/react-charts');
 
