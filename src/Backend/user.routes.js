@@ -47,7 +47,7 @@ router.post("/login", async (req, res) => {
                     .status(400)
                     .json({message: "Email or password does not match!"});
      }catch(e ){
-          if(userWithEmail[0][0].account.password !== password)
+          if(userWithEmail[0].account.password !== password)
           return res
                .status(400)
                .json({message: "Email or password does not match!"});
