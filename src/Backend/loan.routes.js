@@ -29,7 +29,6 @@ router.post("/newloan/", async (req, res)=>{
                await loanCrud.addLoan(email, 
                     type, expense, name, amount, interest_rate,
                     term, compounding_period)
-               await db.disconnect()
           }catch(e){
                res.status(400).json({res:"failed to add user to the db" })
           }finally{
@@ -83,7 +82,6 @@ router.put("/:id", async (req, res) => {
      re_intrate=req.body.interest_rate
      re_term=req.body.term
      re_comp=req.body.compounding_period
-
 
      if(find_id ==null||re_expense ==null||re_name==null||re_amount==null
           ||re_intrate==null ||re_term==null ||re_comp==null){
