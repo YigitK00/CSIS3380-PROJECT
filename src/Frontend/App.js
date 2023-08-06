@@ -13,6 +13,10 @@ import Support from './navigation/Support';
 import LoginForm from './registration/LoginForm';
 import RegisterForm from './registration/RegisterForm';
 import PersonalLoans from './navigation/PersonalLoans';
+import CarLoans from './navigation/CarLoans';
+import BusinessLoans from './navigation/BusinessLoans';
+import MortgageLoans from './navigation/MortgageLoans';
+import ConsolidationLoans from './navigation/ConsolidationLoans';
 
 
 const PrivateRoute = ({ Component }) => {
@@ -45,6 +49,11 @@ const App = () => (
           <Route path="/login" element={< LoggedIn Component={LoginForm} />} /> 
           <Route path="/register" element={< LoggedIn Component={RegisterForm} />} />
           <Route path="/personal-loans" element={<PrivateRoute Component={PersonalLoans} />} />
+          <Route path="/car-loans" element={<PrivateRoute Component={CarLoans} />}  />
+          <Route path="/business-loans" element={<PrivateRoute Component={BusinessLoans} />}  />
+          <Route path="/business-loans" element={<PrivateRoute Component={BusinessLoans} />}  />
+          <Route path="/mortgage-loans" element={<PrivateRoute Component={MortgageLoans} />}  />
+          <Route path="/consolidation-loans" element={<PrivateRoute Component={ConsolidationLoans} />}  />
         </Routes>
       </div>
     </BrowserRouter>

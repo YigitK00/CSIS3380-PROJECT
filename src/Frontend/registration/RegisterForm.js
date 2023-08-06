@@ -28,6 +28,7 @@ function RegisterForm() {
         authState: {email: values.email},
       });
       navigate("/");
+      location.reload();
 
     } catch (err) {
       if (err && err instanceof AxiosError)
