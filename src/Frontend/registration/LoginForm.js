@@ -33,9 +33,6 @@ function LoginForm() {
         authState: {email: values.email},
       });
 
-      navigate("/")
-      window.location.reload();
-
 
     } catch (err) {
       if (err && err instanceof AxiosError)

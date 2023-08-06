@@ -46,6 +46,14 @@ async function findByType(type, email){
      }).catch(() => {console.log("No loans found")})
 }
 
+async function findLoansByEmail(email){
+     return await loan.find({"email":email})
+     .then((data) => {
+          console.log(data)
+          return data
+     }).catch(() => {console.log("No loans found")})
+}
+
 async function findByID(id) {
      return await loan.find({"_id":id})
      .then((data) => {
@@ -83,4 +91,5 @@ module.exports={
      findByType,
      updateLoan,
      deleteLoan,
+     findLoansByEmail
 }

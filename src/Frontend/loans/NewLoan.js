@@ -52,13 +52,15 @@ function NewLoan() {
     <div className="loanf-container">
       <form className="loan-f" onSubmit={formik.handleSubmit}>
         <div className="loan-form">
-          <label htmlFor="type">Loan Type</label>
+          <label htmlFor="type">Loan or Investment Type</label>
           <select name="type" onChange={formik.handleChange} required>
             <option value="Personal">Personal Loan</option>
             <option value="Business">Business Loan</option>
             <option value="Car">Car Loan</option>
             <option value="Mortgage">Mortgage Loan</option>
             <option value="Consolidation">Consolidation Loan</option>
+            <option value="Bond">Bond Investment</option>
+            <option value="Stock">Stock Investment</option>
           </select>
           <label htmlFor="expense">Expense</label>
           <select name="expense" onChange={formik.handleChange} required>
@@ -112,7 +114,7 @@ function NewLoan() {
           />
 
           <button type="submit" className="signup-button">
-            Create Loan
+            Create Loan/Investment
           </button>
           {error && <p>{error}</p>}
         </div>
