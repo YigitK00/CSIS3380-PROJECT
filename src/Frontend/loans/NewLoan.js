@@ -49,7 +49,7 @@ function NewLoan() {
   });
 
   return (
-    <div className="form-container">
+    <div className="loanf-container">
       <form className="loan-f" onSubmit={formik.handleSubmit}>
         <div className="loan-form">
           <label htmlFor="type">Loan Type</label>
