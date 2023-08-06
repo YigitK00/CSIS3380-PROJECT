@@ -29,7 +29,6 @@ router.post("/newloan/", async (req, res)=>{
                await loanCrud.addLoan(email, 
                     type, expense, name, amount, interest_rate,
                     term, compounding_period)
-               await db.disconnect()
           }catch(e){
                res.status(400).json({res:"failed to add user to the db" })
           }finally{
@@ -74,7 +73,7 @@ router.get("/:id", async(req, res)=>{
 
 //******************         update    ****************** */
 
-router.put("/update/:id", async (req, res) => {
+router.put("/:id", async (req, res) => {
      find_id = req.params.id
      //replace values
      re_expense=req.body.expense
@@ -83,7 +82,6 @@ router.put("/update/:id", async (req, res) => {
      re_intrate=req.body.interest_rate
      re_term=req.body.term
      re_comp=req.body.compounding_period
-
 
      if(find_id ==null||re_expense ==null||re_name==null||re_amount==null
           ||re_intrate==null ||re_term==null ||re_comp==null){
@@ -96,27 +94,21 @@ router.put("/update/:id", async (req, res) => {
                find_id, re_expense, re_name, re_amount, re_intrate, re_term, re_comp
           )
           .then( async ()=>{
-               await db.disconnect()
                res.status(200).json({res:"Loan updated succesfully"})
           })
-          .catch( async ()=>{
-               await db.disconnect()        
+          .catch( async ()=>{    
                res.status(400).json({res:"Failed to update loan"} ) 
           })
      }
 })
 
 // //******************         delete    ****************** */
-router.delete("/delete/:id", async(req, res)=>{
+router.delete("/:id", async(req, res)=>{
      const loanID =req.params.id
-     try{
-          await db.connect()
-          await loanCrud.deleteLoan(loanID)
-          await db.disconnect()
-          res.status(200).json({res:"loan deleted successfully"})
-     }catch(e){
-          res.status(400).json({res:"loan deletion failed"})
-     }
-})
+     await db.connect()
+     await loanCrud.deleteLoan(loanID)
+          .then(() => res.json('Loan deleted.'))
+          .catch((err) => res.status(400).json('Error: ' + err));
+});
 
 module.exports= router
