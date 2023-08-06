@@ -17,6 +17,7 @@ import CarLoans from './navigation/CarLoans';
 import BusinessLoans from './navigation/BusinessLoans';
 import MortgageLoans from './navigation/MortgageLoans';
 import ConsolidationLoans from './navigation/ConsolidationLoans';
+import NewLoan from './navigation/NewLoan';
 
 
 const PrivateRoute = ({ Component }) => {
@@ -54,6 +55,7 @@ const App = () => (
           <Route path="/business-loans" element={<PrivateRoute Component={BusinessLoans} />}  />
           <Route path="/mortgage-loans" element={<PrivateRoute Component={MortgageLoans} />}  />
           <Route path="/consolidation-loans" element={<PrivateRoute Component={ConsolidationLoans} />}  />
+          <Route path="/newloan" element={<PrivateRoute Component={NewLoan} />}  />
         </Routes>
       </div>
     </BrowserRouter>
