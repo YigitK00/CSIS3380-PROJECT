@@ -214,9 +214,16 @@ form input[type='checkbox'] {
 NEW LOAN FORM
 -----------*/
 
+.loanf-container {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  height: 35vh;
+}
+
 .loan-f {
   width: 17%;
-  height: 65vh;
 }
 
 .loan-form select {
