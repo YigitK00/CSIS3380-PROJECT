@@ -29,7 +29,6 @@ router.post("/newloan/", async (req, res)=>{
                await loanCrud.addLoan(email, 
                     type, expense, name, amount, interest_rate,
                     term, compounding_period)
-               await db.disconnect()
           }catch(e){
                res.status(400).json({res:"failed to add user to the db" })
           }finally{
