@@ -66,10 +66,21 @@ class PersonalLoansChart extends Component {
       // assuming minimal payment is 10%
       // show the growth of the loans. 
      
-     
-     
-     
-     
+      // what is the total loan amount?
+        //https://www.bing.com/images/search?view=detailV2&ccid=ov9ThjfK&id=E9A7704E8F137EC650934CD9228A5E22BF86E49F&thid=OIP.ov9ThjfKlENZ7ZPeUBsU0AHaFj&mediaurl=https%3a%2f%2fwww.wikihow.com%2fimages%2fthumb%2f4%2f4c%2fCalculate-Bank-Interest-on-Savings-Step-2-Version-5.jpg%2faid1403590-v4-728px-Calculate-Bank-Interest-on-Savings-Step-2-Version-5.jpg&cdnurl=https%3a%2f%2fth.bing.com%2fth%2fid%2fR.a2ff538637ca944359ed93de501b14d0%3frik%3dn%252bSGvyJeiiLZTA%26pid%3dImgRaw%26r%3d0&exph=546&expw=728&q=what+is+the+formula+for+compound+interest&simid=608050366173242587&FORM=IRPRST&ck=6EA9BBB14923FE3CDE91FC75F520FAD6&selectedIndex=0&idpp=overlayview&ajaxhist=0&ajaxserp=0
+      let totalAccountBalance=0;
+      loans.map(oneLoan=>{
+        totalAccountBalance+=
+          oneLoan.amount*(1+ ((oneLoan.interest_rate/12/100)/oneLoan.compounding_period))*oneLoan.compounding_period* (oneLoan.term)/12
+
+      })
+
+
+
+      // how much dose it increment each month?
+      // how much will the payment decrease it by?
+      
+
       options.data[0].dataPoints.push
       (
         { x: 1, y: 64 },
@@ -78,9 +89,12 @@ class PersonalLoansChart extends Component {
         { x: 4, y: 62 },
         { x: 5, y: 64 },
         { x: 5, y: 5 },
-        {x: 6, y:_monthlyCanAfford}
+        {x: 6, y:totalAccountBalance},
+        {x: 6, y:(3377+4431+5066)}
       )
 
+      //git work
+      //git work
     }
 
 
@@ -88,6 +102,9 @@ class PersonalLoansChart extends Component {
 
     return (
       <div class="chart">
+        {
+        }
+
         <h1>Weeks to pay off {chartTitle} Loan</h1>
         <h4>Using {paymentType} Payment</h4>
 
@@ -95,7 +112,7 @@ class PersonalLoansChart extends Component {
           // format of the data 
           // dataPoints: [
           //   { x: 1, y: 64 },
-          data[0].amount
+          // data[0].amount
         
         }
 
