@@ -73,6 +73,7 @@ router.post("/register",async (req, res)=>{
           res.status(400).json({res:"need to add first and last name with email and password "})     
      }else{
           
+          
           await db.connect()
           // await crud.dumpDB()
           const value=await crud.makeUser(
