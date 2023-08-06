@@ -30,7 +30,9 @@ Loan Card
 
 
 
-
+html {
+  height: 100%;
+}
 
 
 * {
@@ -41,6 +43,7 @@ Loan Card
 }
 
 body {
+  height: 100%;
   background-color: #f2f3f5;
   margin-left: 0;
 }
