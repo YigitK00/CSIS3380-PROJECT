@@ -31,8 +31,10 @@ router.post("/login", async (req, res) => {
 
      const {email, password} = req.body;
      const userWithEmail = await crud.findByEmail(email).catch(
-          (err) => {
-               console.log("Error: ", err);
+          () => {
+               return res
+                    .status(400)
+                    .json({message: "Email doesn't exist"});
           }
      );
 
@@ -40,24 +42,16 @@ router.post("/login", async (req, res) => {
      if(!userWithEmail)
           return res
                .status(400)
-               .json({message: "Email or password does not match!"});
-     try{
-          if(userWithEmail[0].account.password !== password)
-               return res
-                    .status(400)
-                    .json({message: "Email or password does not match!"});
-     }catch(e ){
-          if(userWithEmail[0].account.password !== password)
+               .json({message: "Email doesn't exist"});
+
+     if(userWithEmail.account.password !== password)
           return res
                .status(400)
                .json({message: "Email or password does not match!"});
 
-     }
-     
-     
      //Generating jwt token
      const jwtToken = await jwt.sign(
-          { id: userWithEmail[0].id, email: userWithEmail[0].account.email },
+          { id: userWithEmail.id, email: userWithEmail.account.email },
           "CSIS3380" //Will be replaced with process.env.JWT_SECRET
      )
      
@@ -72,8 +66,6 @@ router.post("/register",async (req, res)=>{
           ){
           res.status(400).json({res:"need to add first and last name with email and password "})     
      }else{
-          
-          
           await db.connect()
           // await crud.dumpDB()
           const value=await crud.makeUser(
@@ -82,10 +74,9 @@ router.post("/register",async (req, res)=>{
                )
           
           if(value ==-1){
-               res.status(400).json({res:"email in use "})
-               return
+              return res.status(400).json({res:"email in use "})
+               
           }
-
           return res.status(200).json({res:"added user "})
      }
 })
