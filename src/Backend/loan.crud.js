@@ -47,7 +47,7 @@ async function findByType(type, email){
 }
 
 async function findByID(id) {
-     return await loan.findById(id)
+     return await loan.find({"_id":id})
      .then((data) => {
           console.log(data)
           return data

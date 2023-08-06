@@ -13,7 +13,7 @@ function UpdateLoan() {
     console.log('Values: ', values);
 
     try {
-      await axios.put(`http://localhost:4000/update${id}`, values, {
+      await axios.put(`http://localhost:4000${id}`, values, {
         headers: { 'Access-Control-Allow-Origin': true },
       });
       navigate('/');
@@ -96,7 +96,7 @@ function UpdateLoan() {
           />
 
           <button type="submit" className="signup-button">
-            Create Loan
+            Update Loan
           </button>
           {error && <p>{error}</p>}
         </div>

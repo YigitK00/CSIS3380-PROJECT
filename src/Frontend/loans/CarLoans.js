@@ -107,7 +107,7 @@ function CarLoans() {
 
   const deleteLoan = (id) => {
     axios
-      .delete('http://localhost:4000/delete/' + id)
+      .delete('http://localhost:4000/' + id)
       .then((response) => {
         console.log(response.data);
       })
@@ -115,36 +115,42 @@ function CarLoans() {
         console.log(err);
       });
 
-      window.location.reload();
-
-    // setTodoList(todos.filter((el) => el._id !== id));
+      setLoans(loans.filter((loan) => loan._id !== id));
   };
 
   const editLoan = (id) => {
-    window.location = '/update/' + id;
+    window.location = '/' + id;
   };
 
-  return (
-    <div >
-      {loans.map(oneLoan=>{
-          let _amount= Math.round( ((oneLoan.interest_rate/100/12*oneLoan.compounding_period)*oneLoan.amount)+oneLoan.amount) ; 
-  
-          return <LoanCard 
-            id={oneLoan._id}
-            edit={editLoan}
-            delete={deleteLoan}
-  
-            name={oneLoan.name}
-            amount={oneLoan.amount}
-            interest_rate={oneLoan.interest_rate}
-            due_in={oneLoan.term}
-            life_time_cost={_amount}
-          />
-      })}
-      {JSON.stringify(loans)}
-  
-    </div>
-  );
+  if (loans.length > 0) {
+    return (
+      <div >
+        {loans.map(oneLoan=>{
+            let _amount= Math.round( ((oneLoan.interest_rate/100/12*oneLoan.compounding_period)*oneLoan.amount)+oneLoan.amount) ; 
+    
+            return <LoanCard 
+              id={oneLoan._id}
+              edit={editLoan}
+              delete={deleteLoan}
+    
+              name={oneLoan.name}
+              amount={oneLoan.amount}
+              interest_rate={oneLoan.interest_rate}
+              due_in={oneLoan.term}
+              life_time_cost={_amount}
+            />
+        })}
+    
+      </div>
+    );
+  }
+  else {
+    return (
+      <div>
+        <h1 className="heading">No loans available</h1>
+      </div>
+    )
+  }
   }
   
 
