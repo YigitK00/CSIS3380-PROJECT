@@ -7,6 +7,7 @@
 
 body {
   background-color: #f2f3f5;
+  margin-left: 0;
 }
 
 .logo {
@@ -14,9 +15,9 @@ body {
   height: 6em;
 }
 
-/*-----------------------
-HORIZONTAL NAVIGATION BAR
------------------------*/
+/*------------
+NAVIGATION BAR
+------------*/
 
 h1 {
   position: relative;
@@ -93,29 +94,58 @@ LOGIN and SIGNUP Buttons
   color: #fff;
 }
 
-/*---------------------
-VERTICAL NAVIGATION BAR
----------------------*/
-
-.menu-links {
+/*-----------------
+SIDE NAVIGATION BAR
+-----------------*/
+.side-nav {
+  height: 100%;
+  width: 0;
+  background-color: #4e4e4e;
   list-style-type: none;
-  margin: 0;
-  padding-top: 15px;
-  width: 220px;
-  background-color: #f2f3f5;
+  position: fixed;
+  z-index: 1;
+  top: 0;
+  left: 0;
+  overflow-x: hidden;
+  transition: 0.5;
+  padding-top: 50px;
+}
+
+.side-nav.open {
+  width: 240px;
+}
+
+.open-btn {
+  font-size: 30px;
+  cursor: pointer;
+  transition: 0.2s ease-in-out;
+}
+
+.close-btn {
+  position: absolute;
+  top: 0;
+  right: 15px;
+  font-size: 38px;
+  text-decoration: none;
+  color: #fff;
+  transition: 0.2s ease-in-out;
+}
+
+.close-btn:hover,
+.open-btn:hover {
+  color: #0096ff;
 }
 
 .menu-links a {
   display: block;
-  color: #000;
+  color: #fff;
   padding: 12px 18px;
   text-decoration: none;
   transition: 0.3s ease-in-out;
 }
 
 .menu-links a:hover {
-  background-color: #ccc;
-  color: #000;
+  color: #0096ff;
 }
 
 /*--------------------
