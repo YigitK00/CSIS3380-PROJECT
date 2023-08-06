@@ -48,7 +48,6 @@ html {
   height: 100%;
 }
 
-
 * {
   box-sizing: border-box;
   margin: 0;
@@ -353,4 +352,11 @@ NAVBAR CONTENTS
   display: flex;
   justify-content: center;
   align-items: center;
+  flex-grow: 1;
+}
+
+.wrapper {
+  display: flex;
+  flex-flow: column nowrap;
+  min-height: 100vh; /* or the minimum height of your content */
 }
