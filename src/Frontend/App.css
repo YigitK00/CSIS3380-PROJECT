@@ -227,3 +227,13 @@ a:hover,
 a:active {
   color: #0096ff;
 }
+
+/*-------------
+NAVBAR CONTENTS
+-------------*/
+
+.main-content {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
