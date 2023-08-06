@@ -27,8 +27,6 @@ function RegisterForm() {
         tokenType: "Bearer",
         authState: {email: values.email},
       });
-      navigate("/");
-      window.location.reload();
 
     } catch (err) {
       if (err && err instanceof AxiosError)

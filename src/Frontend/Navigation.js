@@ -36,10 +36,16 @@ const Navigation = () => {
           <li>
             <NavLink to="/consolidation-loans">Consolidation Loans</NavLink>
           </li>
+          <li>
+            <NavLink to="/bond-investments">Bond Investments</NavLink>
+          </li>
+          <li>
+            <NavLink to="/stock-investments">Stock Investments</NavLink>
+          </li>
           <br />
           <hr />
           <li>
-            <NavLink to="/newloan">+ Create a New Loan</NavLink>
+            <NavLink to="/newloan">+ Create New Loan or Investment</NavLink>
           </li>
         </ul>
       </div>
