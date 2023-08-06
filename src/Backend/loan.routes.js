@@ -74,7 +74,7 @@ router.get("/:id", async(req, res)=>{
 
 //******************         update    ****************** */
 
-router.put("/:id", async (req, res) => {
+router.put("/update/:id", async (req, res) => {
      find_id = req.params.id
      //replace values
      re_expense=req.body.expense
@@ -107,7 +107,7 @@ router.put("/:id", async (req, res) => {
 })
 
 // //******************         delete    ****************** */
-router.delete("/:id", async(req, res)=>{
+router.delete("/delete/:id", async(req, res)=>{
      const loanID =req.params.id
      try{
           await db.connect()
