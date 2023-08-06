@@ -109,7 +109,12 @@ function BusinessLoans() {
       .delete('http://localhost:4000/delete/' + id)
       .then((response) => {
         console.log(response.data);
+      })
+      .catch((err) => {
+        console.log(err);
       });
+
+      window.location.reload();
 
     // setTodoList(todos.filter((el) => el._id !== id));
   };
