@@ -106,7 +106,7 @@ function BusinessLoans() {
   
   const deleteLoan = (id) => {
     axios
-      .delete('http://localhost:4000/delete/' + id)
+      .post('http://localhost:4000/delete/' + id)
       .then((response) => {
         console.log(response.data);
       })

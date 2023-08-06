@@ -107,12 +107,11 @@ router.put("/update/:id", async (req, res) => {
 })
 
 // //******************         delete    ****************** */
-router.delete("/delete/:id", async(req, res)=>{
+router.post("/delete/:id", async(req, res)=>{
      const loanID =req.params.id
      try{
           await db.connect()
           await loanCrud.deleteLoan(loanID)
-          await db.disconnect()
           res.status(200).json({res:"loan deleted successfully"})
      }catch(e){
           res.status(400).json({res:"loan deletion failed"})
