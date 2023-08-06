@@ -101,8 +101,8 @@ function PersonalLoans() {
   }
 
   const loanType = "Personal";
-
-  const url = `http://localhost:3000/${loanType}/${userEmail()}`; // this is defined in the loan.routes. 
+  
+  const url = `http://localhost:4000/${loanType}/${userEmail()}`; // this is defined in the loan.routes. 
 
   const [loans, setLoans] = useState([]); // this is the storage for the data
 
@@ -121,10 +121,15 @@ function PersonalLoans() {
 
   const deleteLoan = (id) => {
     axios
-      .delete('http://localhost:5000/activity/delete/' + id)
+      .delete('http://localhost:4000/delete/' + id)
       .then((response) => {
         console.log(response.data);
+      })
+      .catch((err) => {
+        console.log(err);
       });
+
+      window.location.reload();
 
     // setTodoList(todos.filter((el) => el._id !== id));
   };
@@ -146,7 +151,7 @@ function PersonalLoans() {
           numCard+=1
 
           return <LoanCard 
-            id={oneLoan.email}
+            id={oneLoan._id}
             edit={editLoan}
             delete={deleteLoan}
 

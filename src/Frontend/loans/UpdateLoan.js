@@ -4,23 +4,16 @@ import axios, { AxiosError } from 'axios';
 import { useNavigate } from 'react-router-dom';
 import { useState } from 'react';
 
-function NewLoan() {
-  const userEmail = () => {
-    const value = `${document.cookie}`;
-    const regex = /%22(.*)%22/g; // The actual regex
-    const matches = regex.exec(value);
-    const text = matches[1];
-    const textArray = text.split('%22:%22');
+function UpdateLoan() {
+  const id = window.location.pathname
 
-    return textArray[1];
-  };
   const navigate = useNavigate();
   const [error, setError] = useState('');
   const onSubmit = async values => {
     console.log('Values: ', values);
 
     try {
-      await axios.post('http://localhost:4000/newloan', values, {
+      await axios.put(`http://localhost:4000/update${id}`, values, {
         headers: { 'Access-Control-Allow-Origin': true },
       });
       navigate('/');
@@ -36,7 +29,6 @@ function NewLoan() {
 
   const formik = useFormik({
     initialValues: {
-      email: userEmail(),
       type: '',
       expense: '',
       name: '',
@@ -52,14 +44,6 @@ function NewLoan() {
     <div className="loanf-container">
       <form className="loan-f" onSubmit={formik.handleSubmit}>
         <div className="loan-form">
-          <label htmlFor="type">Loan Type</label>
-          <select name="type" onChange={formik.handleChange} required>
-            <option value="Personal">Personal Loan</option>
-            <option value="Business">Business Loan</option>
-            <option value="Car">Car Loan</option>
-            <option value="Mortgage">Mortgage Loan</option>
-            <option value="Consolidation">Consolidation Loan</option>
-          </select>
           <label htmlFor="expense">Expense</label>
           <select name="expense" onChange={formik.handleChange} required>
             <option value="1">Yes</option>
@@ -121,4 +105,4 @@ function NewLoan() {
   );
 }
 
-export default NewLoan;
+export default UpdateLoan;

@@ -15,7 +15,7 @@ function RegisterForm() {
 
     try {
       const response = await axios.post(
-        "http://localhost:3000/register",
+        "http://localhost:4000/register",
         values,
         {
           headers: {"Access-Control-Allow-Origin": true}
@@ -94,6 +94,7 @@ function RegisterForm() {
         <button type="submit" className="signup-button">
           Register
         </button>
+        {error && <p>{error}</p>}
       </div>
     </form>
   </div>

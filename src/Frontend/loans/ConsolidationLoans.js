@@ -87,7 +87,7 @@ function ConsolidationLoans() {
   
   const loanType = "Consolidation";
   
-  const url = `http://localhost:3000/${loanType}/${userEmail()}`;
+  const url = `http://localhost:4000/${loanType}/${userEmail()}`;
 
   const [loans, setLoans] = useState([]);
   useState(() => {
@@ -105,10 +105,15 @@ function ConsolidationLoans() {
 
   const deleteLoan = (id) => {
     axios
-      .delete('http://localhost:5000/activity/delete/' + id)
+      .delete('http://localhost:4000/delete/' + id)
       .then((response) => {
         console.log(response.data);
+      })
+      .catch((err) => {
+        console.log(err);
       });
+
+      window.location.reload();
 
     // setTodoList(todos.filter((el) => el._id !== id));
   };
@@ -125,7 +130,7 @@ function ConsolidationLoans() {
           let _amount= Math.round( ((oneLoan.interest_rate/100/12*oneLoan.compounding_period)*oneLoan.amount)+oneLoan.amount) ; 
 
           return <LoanCard 
-            id={oneLoan.email}
+            id={oneLoan._id}
             edit={editLoan}
             delete={deleteLoan}
 
