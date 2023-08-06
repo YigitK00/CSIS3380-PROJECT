@@ -104,6 +104,22 @@ function BusinessLoans() {
   }, []);
 
   
+  const deleteLoan = (id) => {
+    axios
+      .delete('http://localhost:5000/activity/delete/' + id)
+      .then((response) => {
+        console.log(response.data);
+      });
+
+    // setTodoList(todos.filter((el) => el._id !== id));
+  };
+
+  const editLoan = (id) => {
+    window.location = '/update/' + id;
+  };
+
+
+
   return (
     <div >
       {loans.map(oneLoan=>{

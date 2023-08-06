@@ -1,9 +1,17 @@
 import React, { Component, useState } from 'react';
 import axios from "axios";
 import LoanCard from '../Util/LoanCard';
+  
+
+let fakeDB=[
+  {"email":"ryarwood0@ed.gov","type":"","expense":false,"name":"personal loan","amount":3242,"interest_rate":5,"term":21,"compounding_period":10},
+  {"email":"dstill1@examiner.com","type":"","expense":false,"name":"personal loan","amount":4330,"interest_rate":4,"term":32,"compounding_period":7},
+  {"email":"zjorio9@g.co","type":"","expense":true,"name":"personal loan","amount":4883,"interest_rate":5,"term":44,"compounding_period":9}
+]
 
 
-function MortgageLoans() {
+
+function PersonalLoans() {
 
   const userEmail = () => {
     const value = `${document.cookie}`;
@@ -15,11 +23,11 @@ function MortgageLoans() {
     return textArray[1];
   }
   
-  const loanType = "Mortgage";
+  const loanType = "Personal";
   
-  const url = `http://localhost:3000/${loanType}/${userEmail()}`;
+  const url = `http://localhost:3000/${loanType}/${userEmail()}`; // this is defined in the loan.routes. 
 
-  const [loans, setLoans] = useState([]);
+  const [loans, setLoans] = useState([]); // this is the storage for the data
   useState(() => {
     axios
     .get(
@@ -33,6 +41,21 @@ function MortgageLoans() {
     });
   }, []);
 
+
+  
+  const deleteLoan = (id) => {
+    axios
+      .delete('http://localhost:5000/activity/delete/' + id)
+      .then((response) => {
+        console.log(response.data);
+      });
+
+    // setTodoList(todos.filter((el) => el._id !== id));
+  };
+
+  const editLoan = (id) => {
+    window.location = '/update/' + id;
+  };
 
   return (
     <div >
@@ -56,7 +79,17 @@ function MortgageLoans() {
 }
 
 
-export default MortgageLoans;
+
+export default PersonalLoans;
+
+
+
+
+
+
+
+
+
 
 
 // import CanvasJSReact from '@canvasjs/react-charts';
@@ -130,3 +163,6 @@ export default MortgageLoans;
 //     );
 //   }
 // }
+
+// make the card here. // loan name and the loan amount, interest rate, left over amount. 
+  // creaation vs rn what is the left over payment. 

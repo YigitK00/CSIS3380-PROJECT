@@ -12,12 +12,14 @@ import Support from './navigation/Support';
 
 import LoginForm from './registration/LoginForm';
 import RegisterForm from './registration/RegisterForm';
-import PersonalLoans from './navigation/PersonalLoans';
-import CarLoans from './navigation/CarLoans';
-import BusinessLoans from './navigation/BusinessLoans';
-import MortgageLoans from './navigation/MortgageLoans';
-import ConsolidationLoans from './navigation/ConsolidationLoans';
-import NewLoan from './navigation/NewLoan';
+
+import PersonalLoans from './loans/PersonalLoans';
+import CarLoans from './loans/CarLoans';
+import BusinessLoans from './loans/BusinessLoans';
+import MortgageLoans from './loans/MortgageLoans';
+import ConsolidationLoans from './loans/ConsolidationLoans';
+
+import NewLoan from './loans/NewLoan';
 
 
 const PrivateRoute = ({ Component }) => {
