@@ -83,7 +83,6 @@ router.put("/:id", async (req, res) => {
      re_term=req.body.term
      re_comp=req.body.compounding_period
 
-
      if(find_id ==null||re_expense ==null||re_name==null||re_amount==null
           ||re_intrate==null ||re_term==null ||re_comp==null){
           res.status().json({res:"Need to fill all the fields"})
