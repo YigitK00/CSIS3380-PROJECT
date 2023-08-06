@@ -19,8 +19,8 @@ import CarLoans from './loans/CarLoans';
 import BusinessLoans from './loans/BusinessLoans';
 import MortgageLoans from './loans/MortgageLoans';
 import ConsolidationLoans from './loans/ConsolidationLoans';
-
 import NewLoan from './loans/NewLoan';
+import UpdateLoan from './loans/UpdateLoan';
 
 const PrivateRoute = ({ Component }) => {
   const isAuthenticated = useIsAuthenticated();
@@ -81,6 +81,10 @@ const App = () => (
           <Route
             path="/newloan"
             element={<PrivateRoute Component={NewLoan} />}
+          />
+          <Route
+            path="/:id"
+            element={<PrivateRoute Component={UpdateLoan} />}
           />
         </Routes>
         <Footer />

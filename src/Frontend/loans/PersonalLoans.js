@@ -45,7 +45,7 @@ function PersonalLoans() {
   };
 
   const editLoan = (id) => {
-    window.location = '/update/' + id;
+    window.location = '/' + id;
   };
 
   return (
@@ -54,7 +54,7 @@ function PersonalLoans() {
           let _amount= Math.round( ((oneLoan.interest_rate/100/12*oneLoan.compounding_period)*oneLoan.amount)+oneLoan.amount) ; 
 
           return <LoanCard 
-            id={oneLoan.email}
+            id={oneLoan._id}
             edit={editLoan}
             delete={deleteLoan}
 
