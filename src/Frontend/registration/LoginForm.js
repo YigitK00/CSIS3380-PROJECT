@@ -19,7 +19,7 @@ function LoginForm() {
 
     try {
       const response = await axios.post(
-        "http://localhost:3000/login", 
+        "http://localhost:4000/login", 
         values,
         {
           headers: {"Access-Control-Allow-Origin": true}
@@ -81,6 +81,7 @@ function LoginForm() {
         <button type="submit" className="login-button">
           Login
         </button>
+        {error && <p>{error}</p>}
         <label>
           <input type="checkbox" name="remember" />
           Remember me

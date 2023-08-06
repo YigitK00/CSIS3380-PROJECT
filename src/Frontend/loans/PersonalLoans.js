@@ -2,15 +2,6 @@ import React, { Component, useState } from 'react';
 import axios from "axios";
 import LoanCard from '../Util/LoanCard';
   
-
-let fakeDB=[
-  {"email":"ryarwood0@ed.gov","type":"","expense":false,"name":"personal loan","amount":3242,"interest_rate":5,"term":21,"compounding_period":10},
-  {"email":"dstill1@examiner.com","type":"","expense":false,"name":"personal loan","amount":4330,"interest_rate":4,"term":32,"compounding_period":7},
-  {"email":"zjorio9@g.co","type":"","expense":true,"name":"personal loan","amount":4883,"interest_rate":5,"term":44,"compounding_period":9}
-]
-
-
-
 function PersonalLoans() {
 
   const userEmail = () => {
@@ -25,7 +16,7 @@ function PersonalLoans() {
   
   const loanType = "Personal";
   
-  const url = `http://localhost:3000/${loanType}/${userEmail()}`; // this is defined in the loan.routes. 
+  const url = `http://localhost:4000/${loanType}/${userEmail()}`; // this is defined in the loan.routes. 
 
   const [loans, setLoans] = useState([]); // this is the storage for the data
   useState(() => {
@@ -45,7 +36,7 @@ function PersonalLoans() {
   
   const deleteLoan = (id) => {
     axios
-      .delete('http://localhost:5000/activity/delete/' + id)
+      .delete('http://localhost:4000/activity/delete/' + id)
       .then((response) => {
         console.log(response.data);
       });

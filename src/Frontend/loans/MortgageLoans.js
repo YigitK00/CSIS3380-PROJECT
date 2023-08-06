@@ -17,7 +17,7 @@ function MortgageLoans() {
   
   const loanType = "Mortgage";
   
-  const url = `http://localhost:3000/${loanType}/${userEmail()}`;
+  const url = `http://localhost:4000/${loanType}/${userEmail()}`;
 
   const [loans, setLoans] = useState([]);
   useState(() => {
@@ -37,7 +37,7 @@ function MortgageLoans() {
 
   const deleteLoan = (id) => {
     axios
-      .delete('http://localhost:5000/activity/delete/' + id)
+      .delete('http://localhost:4000/activity/delete/' + id)
       .then((response) => {
         console.log(response.data);
       });
