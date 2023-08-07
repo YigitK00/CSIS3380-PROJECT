@@ -1,4 +1,4 @@
-import React, { Component, useState } from 'react';
+import React, { useState } from 'react';
 import { useIsAuthenticated } from 'react-auth-kit';
 import axios from 'axios';
 import LoanCard from './Util/LoanCard';
