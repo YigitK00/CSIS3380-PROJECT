@@ -46,10 +46,11 @@ class PersonalLoansChart extends Component {
       data: [
         {
           type: 'line',
-          toolTipContent: 'Month {x}: {y} = {interest}-I {principle}-P',
+          toolTipContent: 'Month {month}: {total_principle} {interest}',
           dataPoints: [],
         },
       ],
+      // let loan_one_month={month:0 , total_principle:0, total_interest:0}
 
 
     };
@@ -126,7 +127,8 @@ class PersonalLoansChart extends Component {
 
         //     //first loan in sequence
         if(all_loans_combined[i].total_principle ==0 ||i ==0){
-          console.log(22222)
+          console.log(1)
+          
 
             loan_one_month.month=i
             loan_one_month.total_principle=loan.amount
@@ -154,13 +156,15 @@ class PersonalLoansChart extends Component {
 
       options.data[0].dataPoints.push
       (
+        all_loans_combined
         // { x: 1, y: principal+interest, principle: 11, interest:11 },
-        { x: 2, new_total: 61 },
-        { x: 3, y: 64 },
-        { x: 4, y: 62 },
-        { x: 5, y: 64 },
-        { x: 5, y: 5 },
-        // {x: 6, y:(3377+4431+5066)}
+        // { x: 2, new_total: 61 },
+        // { x: 3, y: 64 },
+        // { x: 4, y: 62 },
+        // { x: 5, y: 64 },
+        // { x: 5, y: 5 },
+        // // {x: 6, y:(3377+4431+5066)}
+        // Month {month}: {total_principle} {interest}
       )
       // toolTipContent: 'Month {x}: {new_total} = {interest}-I {principle}-P',
     }
