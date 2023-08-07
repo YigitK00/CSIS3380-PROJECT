@@ -144,6 +144,7 @@ LOGIN and SIGNUP Buttons
   position: relative;
   background-color: #fff;
   list-style: none;
+  padding-right: 1em;
 }
 
 .login-signup li a {
@@ -288,7 +289,8 @@ NEW LOAN FORM
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  height: 35vh;
+  position: relative;
+  padding-bottom: 45em;
 }
 
 .loan-f {
@@ -310,19 +312,17 @@ NEW LOAN FORM
 FOOTER
 ----*/
 
-footer {
+.footer {
   background-color: #fff;
-  position: fixed;
+  position: absolute;
   margin-top: 10%;
-  left:0;
   bottom: 0;
-  right: 0;
   width: 100%;
   padding: 50px;
   text-align: center;
 }
 
-footer p {
+.footer p {
   display: flex;
   font-size: 16px;
   font-weight: 400;
@@ -331,7 +331,7 @@ footer p {
   justify-content: center;
 }
 
-footer ul {
+.footer ul {
   display: flex;
   align-items: center;
   justify-content: center;
@@ -339,17 +339,17 @@ footer ul {
   padding-top: 15px;
 }
 
-footer ul li {
+.footer ul li {
   display: inline;
 }
 
-footer a {
+.footer a {
   text-decoration: none;
   font-weight: bold;
   font-size: 16px;
 }
 
-footer a {
+.footer a {
   padding: 10px;
   color: #000;
 }
@@ -375,11 +375,12 @@ HOME PAGE
 
 .home {
   flex-direction: column;
+  padding-bottom: 3em;
 }
 
 .welcome {
   font-size: 44px;
-  font-weight: 600;
+  font-weight: bold;
 }
 
 .home h2 {
@@ -389,10 +390,6 @@ HOME PAGE
 /*-------------
 ABOUT US PAGE
 -------------*/
-*, *:before, *:after {
-  box-sizing: inherit;
-}
-
 .about-column {
   float: left;
   width: 33%;
@@ -412,6 +409,7 @@ ABOUT US PAGE
 }
 
 .about-container {
+  margin-bottom: 2em;
   padding: 0 16px;
 }
 
@@ -423,15 +421,22 @@ ABOUT US PAGE
 
 .title {
   color: grey;
+  text-align: center;
 }
 
 .about-heading {
+  display:block;
   text-align: center;
   padding-top: 1em;
+  font-weight: bold;
 }
 
 .about-img {
   width: 100%;
+}
+
+.about-desc {
+  font-weight: bold;
 }
 
 @media screen and (max-width: 650px) {
@@ -442,9 +447,11 @@ ABOUT US PAGE
 }
 
 #root {
-  padding-bottom:60px;
+  height: 100%;
 }
 
 .wrapper {
+  position: relative;
   padding-bottom:10em;
+  min-height: 100vh;
 }

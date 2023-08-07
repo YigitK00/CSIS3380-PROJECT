@@ -1,6 +1,6 @@
 const Footer = () => {
   return (
-    <div>
+    <div class="footer">
       <footer>
         <p>©2023 Loanwolf, All rights reserved.</p>
         <ul>
