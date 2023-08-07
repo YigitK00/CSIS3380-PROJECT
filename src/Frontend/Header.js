@@ -1,6 +1,40 @@
 import React from 'react';
-import { NavLink } from 'react-router-dom';
-import Navigation from './Navigation';
+import { NavLink, useNavigate } from 'react-router-dom';
+import { useIsAuthenticated } from 'react-auth-kit';
+import { useSignOut } from 'react-auth-kit';
+import Navigation from './Navigation'
+
+const Authentication = () => {
+  const navigate = useNavigate();
+  const signOut = useSignOut();
+  const logout = () => {
+    signOut();
+    navigate("/login");
+  }
+  const isAuthenticated = useIsAuthenticated();
+  const auth = isAuthenticated();
+  if (auth) {
+    return (
+      <ul className="login-signup">
+        <li>
+          <NavLink onClick={logout}>Logout</NavLink>
+        </li>
+      </ul>
+    );
+  }
+  else {
+    return (
+      <ul className="login-signup">
+          <li>
+            <NavLink to="/login">Login</NavLink>
+          </li>
+          <li>
+            <NavLink to="/register">Register</NavLink>
+          </li>
+      </ul>
+    );
+  }
+}
 
 const Header = () => (
   <header>
@@ -21,14 +55,15 @@ const Header = () => (
             <NavLink to="/support">Support</NavLink>
           </li>
         </ul>
-        <ul className="login-signup">
+        {/* <ul className="login-signup">
           <li>
             <NavLink to="/login">Login</NavLink>
           </li>
           <li>
             <NavLink to="/register">Register</NavLink>
           </li>
-        </ul>
+        </ul> */}
+        <Authentication />
       </nav>
       <hr />
       <Navigation />

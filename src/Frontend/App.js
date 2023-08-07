@@ -19,6 +19,8 @@ import CarLoans from './loans/CarLoans';
 import BusinessLoans from './loans/BusinessLoans';
 import MortgageLoans from './loans/MortgageLoans';
 import ConsolidationLoans from './loans/ConsolidationLoans';
+import BondInvestments from './loans/BondInvestments';
+import StockInvestments from './loans/StockInvestments';
 import NewLoan from './loans/NewLoan';
 import UpdateLoan from './loans/UpdateLoan';
 
@@ -73,6 +75,14 @@ const App = () => (
           <Route
             path="/consolidation-loans"
             element={<PrivateRoute Component={ConsolidationLoans} />}
+          />
+          <Route
+            path="/bond-investments"
+            element={<PrivateRoute Component={BondInvestments} />}
+          />
+          <Route
+            path="/stock-investments"
+            element={<PrivateRoute Component={StockInvestments} />}
           />
           <Route
             path="/newloan"
