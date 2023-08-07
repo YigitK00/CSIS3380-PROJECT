@@ -13,7 +13,7 @@ const About = () => (
         <div class="card">
           <img class="about-img" src="/Bill.jpg" alt="Bill"/>
           <div class="container">
-            <h2>Bill Nguyen</h2>
+            <h2>Bill</h2>
             <p class="title">Back End Developer</p>
             <p>Bill is a passionate software engineer who specializes in server-side engineering.</p>
             <p>bill@loanwolf.com</p>
@@ -29,7 +29,6 @@ const About = () => (
             <p class="title">Database Engineer and Loans Specialist</p>
             <p>Cristi is a visionary loans specialist who brought the idea to life and managed the databases.</p>
             <p>cristi@loanwolf.com</p>
-            <p><button class="button">Contact</button></p>
           </div>
         </div>
       </div>
