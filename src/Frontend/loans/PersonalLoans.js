@@ -46,7 +46,7 @@ class PersonalLoansChart extends Component {
       data: [
         {
           type: 'line',
-          toolTipContent: 'Week {x}: {y}%',
+          toolTipContent: 'Month {x}: {y} = {interest}-I {principle}-P',
           dataPoints: [],
         },
       ],
@@ -67,34 +67,36 @@ class PersonalLoansChart extends Component {
       // show the growth of the loans. 
      
       // what is the total loan amount?
-        //https://www.bing.com/images/search?view=detailV2&ccid=ov9ThjfK&id=E9A7704E8F137EC650934CD9228A5E22BF86E49F&thid=OIP.ov9ThjfKlENZ7ZPeUBsU0AHaFj&mediaurl=https%3a%2f%2fwww.wikihow.com%2fimages%2fthumb%2f4%2f4c%2fCalculate-Bank-Interest-on-Savings-Step-2-Version-5.jpg%2faid1403590-v4-728px-Calculate-Bank-Interest-on-Savings-Step-2-Version-5.jpg&cdnurl=https%3a%2f%2fth.bing.com%2fth%2fid%2fR.a2ff538637ca944359ed93de501b14d0%3frik%3dn%252bSGvyJeiiLZTA%26pid%3dImgRaw%26r%3d0&exph=546&expw=728&q=what+is+the+formula+for+compound+interest&simid=608050366173242587&FORM=IRPRST&ck=6EA9BBB14923FE3CDE91FC75F520FAD6&selectedIndex=0&idpp=overlayview&ajaxhist=0&ajaxserp=0
-      let totalAccountBalance=0;
-      loans.map(oneLoan=>{
-        totalAccountBalance+=
-          oneLoan.amount*(1+ ((oneLoan.interest_rate/12/100)/oneLoan.compounding_period))*oneLoan.compounding_period* (oneLoan.term)/12
+      //https://www.bing.com/images/search?view=detailV2&ccid=ov9ThjfK&id=E9A7704E8F137EC650934CD9228A5E22BF86E49F&thid=OIP.ov9ThjfKlENZ7ZPeUBsU0AHaFj&mediaurl=https%3a%2f%2fwww.wikihow.com%2fimages%2fthumb%2f4%2f4c%2fCalculate-Bank-Interest-on-Savings-Step-2-Version-5.jpg%2faid1403590-v4-728px-Calculate-Bank-Interest-on-Savings-Step-2-Version-5.jpg&cdnurl=https%3a%2f%2fth.bing.com%2fth%2fid%2fR.a2ff538637ca944359ed93de501b14d0%3frik%3dn%252bSGvyJeiiLZTA%26pid%3dImgRaw%26r%3d0&exph=546&expw=728&q=what+is+the+formula+for+compound+interest&simid=608050366173242587&FORM=IRPRST&ck=6EA9BBB14923FE3CDE91FC75F520FAD6&selectedIndex=0&idpp=overlayview&ajaxhist=0&ajaxserp=0
+        
+      loans.map(loan=>{
+        // {month:1 total_principle: interest: }
+        // {month:2 total_principle: interest: }
+          // loan 1 compounds every 2 months so new month 2 
+          // {month:2 total_principle: total_principle+=loan.amount interest }
+          // "but the interest earned is based on the old principle"n
+          
 
       })
 
 
 
-      // how much dose it increment each month?
-      // how much will the payment decrease it by?
-      
+
+
+
 
       options.data[0].dataPoints.push
       (
-        { x: 1, y: 64 },
-        { x: 2, y: 61 },
+        // { x: 1, y: principal+interest, principle: 11, interest:11 },
+        { x: 2, new_total: 61 },
         { x: 3, y: 64 },
         { x: 4, y: 62 },
         { x: 5, y: 64 },
         { x: 5, y: 5 },
-        {x: 6, y:totalAccountBalance},
-        {x: 6, y:(3377+4431+5066)}
+        // {x: 6, y:(3377+4431+5066)}
       )
+      // toolTipContent: 'Month {x}: {new_total} = {interest}-I {principle}-P',
 
-      //git work
-      //git work
     }
 
 
@@ -249,6 +251,38 @@ export default PersonalLoans;
 
 
 
+
+/**
+ * let amount=0,interest=0, principal=0;
+        let n=0,r=0,t=0, counter=0;
+        let monthly_interest_payment=[]
+        let myObj=null;
+        loans.map(oneLoan=>{
+          // for each month see what is the interest and the new principle?
+          // iterate over the loans and add the totals to the same loan Object
+          // which months do we apply interest on?
+          let compounding_months=oneLoan.compounding_period/12 // on these month.
+          // how much interest is earner?
+          interest=oneLoan.amount*oneLoan.interest_rate/100
+          for(let x=0; x< oneLoan.term; i++){
+              // term of 1 years thus compounded 2x per year
+              // month 6 need a compound. 
+              if(x % Math.round(compounding_months) == 0){
+                  oneLoan.amount+=interest 
+              }
+          }
+            myObj={
+              x:counter,
+              y:oneLoan.amount,
+              principle: 11,
+              interest:interest 
+            }
+            counter+=1
+        })
+      // how much dose it increment each month?
+      // how much will the payment decrease it by?
+      
+ */
 
 
 
