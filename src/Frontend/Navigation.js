@@ -36,6 +36,8 @@ const Navigation = () => {
           <li>
             <NavLink to="/consolidation-loans">Consolidation Loans</NavLink>
           </li>
+          <br />
+          <hr />
           <li>
             <NavLink to="/bond-investments">Bond Investments</NavLink>
           </li>

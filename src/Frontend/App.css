@@ -85,7 +85,9 @@ h2 {
 /*------------
 NAVIGATION BAR
 ------------*/
-
+li {
+  list-style-type: none;
+}
 h1 {
   position: relative;
   padding-left: 15px;
