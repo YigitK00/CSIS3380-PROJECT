@@ -1,5 +1,5 @@
 import React, { Component, useState } from 'react';
-import axios from "axios";
+import axios, { all } from "axios";
 import LoanCard from '../Util/LoanCard';
   
 import CanvasJSReact from '@canvasjs/react-charts';
@@ -62,6 +62,8 @@ class PersonalLoansChart extends Component {
       _monthlyCanAfford=amount;
     }
 
+
+
     let setUpandAddData=(loans, monthlyCanAfford)=>{
       // assuming minimal payment is 10%
       // show the growth of the loans. 
@@ -108,8 +110,8 @@ class PersonalLoansChart extends Component {
     }
     counter+=1
   })
-  for(let i=0; i<loans[loan_instance]; i++){
-      all_loans_combined.push(new loan_one_month)
+  for(let i=0; i<loans[loan_instance].term; i++){ 
+      all_loans_combined.push({...loan_one_month} )
   }
     // populate all_loans_combined with the length of the longest loan.term
 
@@ -119,36 +121,36 @@ class PersonalLoansChart extends Component {
     loan_one_month={month:0 , total_principle:0, total_interest:0}
 
     for(let i=0; i<loan.term; i++){
-      if( Math.floor(loan.compounding_period/12) % i ==0 ){
+      // month thats being compounded on 
+      if( Math.floor(loan.compounding_period/12) % i ==0){
 
-        //first loan in sequence
-        if(all_loans_combined[i].total_principle ==0 || all_loans_combined[i]==null){
+        //     //first loan in sequence
+        if(all_loans_combined[i].total_principle ==0 ||i ==0){
+          console.log(22222)
 
             loan_one_month.month=i
             loan_one_month.total_principle=loan.amount
             loan_one_month.total_interest=loan.interest_rate/100* loan.amount
 
-            all_loans_combined[i].push(loan_one_month)
-          }else{
+            all_loans_combined[i]=({...loan_one_month})
+          }
+          else{
             // add the new values to the old as the loan compounds
             loan_one_month.month=i
+            console.log(11111111)
 
             let _interest =loan_one_month.total_principle* loan.interest_rate/100
             loan_one_month.total_interest +=  _interest
             loan_one_month.total_principle=  loan_one_month.total_principle +_interest
 
-            all_loans_combined[i].push(loan_one_month)
+            all_loans_combined[i]=({...loan_one_month})
           }
       }
     }
-
-
   })
-
-
-
-
-
+  
+  console.log(all_loans_combined)
+  
 
       options.data[0].dataPoints.push
       (
@@ -161,11 +163,7 @@ class PersonalLoansChart extends Component {
         // {x: 6, y:(3377+4431+5066)}
       )
       // toolTipContent: 'Month {x}: {new_total} = {interest}-I {principle}-P',
-
     }
-
-
-
 
     return (
       <div class="chart">
