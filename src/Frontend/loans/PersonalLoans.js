@@ -6,9 +6,9 @@ import CanvasJSReact from '@canvasjs/react-charts';
 
 
 let fakeDB=[
-  {"email":"ryarwood0@ed.gov","type":"","expense":false,"name":"personal loan","amount":100,"interest_rate":5,"term":12,"compounding_period":2},
-  {"email":"dstill1@examiner.com","type":"","expense":false,"name":"personal loan","amount":100,"interest_rate":7,"term":12,"compounding_period":3},
-  {"email":"zjorio9@g.co","type":"","expense":true,"name":"personal loan","amount":200,"interest_rate":5,"term":44,"compounding_period":3}
+  // {"email":"ryarwood0@ed.gov","type":"","expense":false,"name":"personal loan","amount":100,"interest_rate":5,"term":7,"compounding_period":2},
+  {"email":"ryarwood0@ed.gov","type":"","expense":false,"name":"personal loan","amount":100,"interest_rate":5,"term":20,"compounding_period":2},
+  {"email":"ryarwood0@ed.gov","type":"","expense":false,"name":"personal loan","amount":440,"interest_rate":5,"term":20,"compounding_period":2},
 ]
 
 
@@ -53,14 +53,19 @@ class PersonalLoansChart extends Component {
 
     };
 
-    // I deal with the given the proper data into the chart
-    let _monthlyCanAfford=0
-    let monthlyCanAfford=(amount)=>{
-      console.log(amount);
-      _monthlyCanAfford=amount;
+  // // Declare a state variable and its corresponding setter function using the useState hook
+  // const [monthlyCanAfford, setMonthlyCanAfford] = useState(0)
+  let setMonthlyCanAfford=0;
+  const updateMonthlyCanAfford = (amount) => {
+    if (isNaN(amount)) {
+      setMonthlyCanAfford(0);
+    } else {
+      setMonthlyCanAfford(amount);
     }
+  }
+  
 
-    let setUpandAddData=(loans, monthlyCanAfford)=>{
+    let setUpandAddData=(loans)=>{
     
       let all_loans_combined=[]
       let loan_one_month={month:0 , y:0, total_interest:0}
@@ -81,51 +86,57 @@ class PersonalLoansChart extends Component {
 
       let previous_loan_amout=0
       counter=0
+      loans.sort((a,b)=>b.amount-a.amount)
+      let monthlyPayment=50
       loans.map(loan=>{
         loan_one_month={month:0 , y:0, total_interest:0}
-
-
         let monthCompoundedOn=Math.round(12/loan.compounding_period)
         let interest=0
         for(let month=0; month<loan.term ;month++){
           if( (month+1) % monthCompoundedOn ==0 ){ // interest is generated 
-            interest= loan.amount *(loan.interest_rate/100/12) *monthCompoundedOn
+            interest= all_loans_combined[month-1].y *(loan.interest_rate/100/12) *monthCompoundedOn
             loan.amount+=interest
           }
           if(counter!=0){
               all_loans_combined[month].y =previous_loan_amout
           }
           all_loans_combined[month].month=month
-          all_loans_combined[month].y+=loan.amount
+          all_loans_combined[month].y+=loan.amount -monthlyPayment *month
           all_loans_combined[month].total_interest+=interest
+
+          if(all_loans_combined[month].y <=0){
+            break
+          }
         }  
         previous_loan_amout+=loan.amount
         counter+=1        
-
       })
-      
+      // the loan compounding 
+
 
 
       all_loans_combined.map(loan=>{options.data[0].dataPoints.push(loan)})
   }
-
 
   return (
       <div class="chart">
         {
         }
 
-        <h1>Weeks to pay off {chartTitle} Loan</h1>
-        <h4>Using {paymentType} Payment</h4>
+        <h1>Months to pay off {chartTitle} Loan</h1>
+        <h4>Using {paymentType} Payment, compounding display of largest loan</h4>
 
-
-        {/* <AffordMonthly
-          monthlyCanAfford={monthlyCanAfford}
-        /> */}
+        <AffordMonthly
+          monthlyCanAfford={updateMonthlyCanAfford}
+        />
+        <br/>
+        <br/>
+        <br/>
+        <br/>
 
 
         {
-          setUpandAddData(data, monthlyCanAfford)
+          setUpandAddData(data)// need the amount the user can afford to pay monthly
           // i set up the data for the graph
         }
         <CanvasJSChart
@@ -141,9 +152,9 @@ class PersonalLoansChart extends Component {
 
 let AffordMonthly=(prop)=>{
   return (
-    <form>
+    <div >
         <label >How much can you afford monthly </label>
-        <input type="number" id="amount" placeholder='250'></input>
+        <input type="number"  id="amount" placeholder='25' required></input>
         <button type='submit'
         onClick={()=>{
           prop.monthlyCanAfford(
@@ -151,7 +162,7 @@ let AffordMonthly=(prop)=>{
           )
         }}
         >Update chart</button>
-    </form>
+    </div>
   )
 }
 
@@ -203,14 +214,12 @@ function PersonalLoans() {
     window.location = '/update/' + id;
   };
 
-  let numCard=0;
 
   return (
   <div  class="container">
       {
       fakeDB.map(oneLoan=>{
           let _amount= Math.round( ((oneLoan.interest_rate/100/12*oneLoan.compounding_period)*oneLoan.amount)+oneLoan.amount) ; 
-          numCard+=1
 
           return <LoanCard 
             id={oneLoan._id}
