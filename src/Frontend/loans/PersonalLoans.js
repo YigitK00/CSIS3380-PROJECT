@@ -1,5 +1,5 @@
 import React, { Component, useState } from 'react';
-import axios from "axios";
+import axios, { all } from "axios";
 import LoanCard from '../Util/LoanCard';
   
 import CanvasJSReact from '@canvasjs/react-charts';
@@ -46,10 +46,12 @@ class PersonalLoansChart extends Component {
       data: [
         {
           type: 'line',
-          toolTipContent: 'Month {x}: {y} = {interest}-I {principle}-P',
+          toolTipContent: 'Month {month}: principle {y} interest {total_interest} ',
           dataPoints: [],
         },
+
       ],
+      // let loan_one_month={month:0 , total_principle:0, total_interest:0}
 
 
     };
@@ -69,40 +71,99 @@ class PersonalLoansChart extends Component {
       // what is the total loan amount?
       //https://www.bing.com/images/search?view=detailV2&ccid=ov9ThjfK&id=E9A7704E8F137EC650934CD9228A5E22BF86E49F&thid=OIP.ov9ThjfKlENZ7ZPeUBsU0AHaFj&mediaurl=https%3a%2f%2fwww.wikihow.com%2fimages%2fthumb%2f4%2f4c%2fCalculate-Bank-Interest-on-Savings-Step-2-Version-5.jpg%2faid1403590-v4-728px-Calculate-Bank-Interest-on-Savings-Step-2-Version-5.jpg&cdnurl=https%3a%2f%2fth.bing.com%2fth%2fid%2fR.a2ff538637ca944359ed93de501b14d0%3frik%3dn%252bSGvyJeiiLZTA%26pid%3dImgRaw%26r%3d0&exph=546&expw=728&q=what+is+the+formula+for+compound+interest&simid=608050366173242587&FORM=IRPRST&ck=6EA9BBB14923FE3CDE91FC75F520FAD6&selectedIndex=0&idpp=overlayview&ajaxhist=0&ajaxserp=0
         
-      loans.map(loan=>{
+
+    //data_for_one_loan
+      // loans.map(loan=>{
         // {month:1 total_principle: interest: }
         // {month:2 total_principle: interest: }
           // loan 1 compounds every 2 months so new month 2 
           // {month:2 total_principle: total_principle+=loan.amount interest }
-          // "but the interest earned is based on the old principle"n
-          
+          // "but the interest earned is based on the old principle"
+            // newPrince= oldPrince + oldPrince*oneLoan.interestrate/100
+            
+          //for (let i=0; i< loan.term; i++){
+            // 44 months there will be gaps..   { null } .. set it with the existing values
+              // if( month of compound){ // i:5    month..:4 month % i ==0
+              // list_of_months[month of compound-1]. total_principle+= interest 
+              // list_of_months[month of compound-1]. interest= interest 
+            // }
+          // }else{
+            //use previous entry
+          // }
 
-      })
+          //data_for_one_loan.map(loan=>{ add the values together.  })
+          // each month i make the minimal payment. 
+        // })
+    
+  // algorithm to implement. 
+
+  let all_loans_combined=[]
+  let loan_one_month={month:0 , y:0, total_interest:0}
+
+  // toolTipContent: 'Month {month}: principle {y} interest {total_interest} ',
 
 
-
-
-
-
-
-      options.data[0].dataPoints.push
-      (
-        // { x: 1, y: principal+interest, principle: 11, interest:11 },
-        { x: 2, new_total: 61 },
-        { x: 3, y: 64 },
-        { x: 4, y: 62 },
-        { x: 5, y: 64 },
-        { x: 5, y: 5 },
-        // {x: 6, y:(3377+4431+5066)}
-      )
-      // toolTipContent: 'Month {x}: {new_total} = {interest}-I {principle}-P',
-
+  let longest=0; // i++
+  let loan_instance=0
+  let counter=0
+  loans.map(loan=>{
+    if(loan.term >longest){
+      longest=loan.term
+      loan_instance=counter
     }
+    counter+=1
+  })
+  for(let i=0; i<loans[loan_instance].term; i++){ 
+      all_loans_combined.push({...loan_one_month} )
+  }
+    // populate all_loans_combined with the length of the longest loan.term
 
 
+  // compound all the interest and put it into the right box
+  loans.map(loan=>{
+    //reset the values for new loan
+    loan_one_month={month:0 , y:0, total_interest:0}
 
 
-    return (
+    
+    for(let i=0; i<loan.term; i++){
+
+      // month thats being compounded on 
+      if( Math.floor(loan.compounding_period/12) % i ===0){
+
+        //     //first loan in sequence
+        if(all_loans_combined[i].y === 0 || i === 0){
+          // console.log(1)
+          // console.log(i)
+          
+            loan_one_month.month=i
+            loan_one_month.y=loan.amount
+            loan_one_month.total_interest=loan.interest_rate/100* loan.amount
+
+            all_loans_combined[i]=({...loan_one_month})
+          }
+          else{
+            // add the new values to the old as the loan compounds
+            loan_one_month.month=i
+            // console.log(2)
+            // console.log(i)
+
+            let _interest =loan_one_month.y* loan.interest_rate/100
+            loan_one_month.total_interest +=  _interest
+            loan_one_month.y=  loan_one_month.y +_interest
+
+            all_loans_combined[i]=({...loan_one_month})
+          }
+      }
+    }
+  })
+
+  all_loans_combined.map(loan=>{
+    options.data[0].dataPoints.push(loan)
+  })
+  }
+
+  return (
       <div class="chart">
         {
         }
@@ -110,18 +171,10 @@ class PersonalLoansChart extends Component {
         <h1>Weeks to pay off {chartTitle} Loan</h1>
         <h4>Using {paymentType} Payment</h4>
 
-        {
-          // format of the data 
-          // dataPoints: [
-          //   { x: 1, y: 64 },
-          // data[0].amount
-        
-        }
 
-
-        <AffordMonthly
+        {/* <AffordMonthly
           monthlyCanAfford={monthlyCanAfford}
-        />
+        /> */}
 
 
         {
@@ -140,7 +193,6 @@ class PersonalLoansChart extends Component {
 }
 
 
-
 let AffordMonthly=(prop)=>{
   return (
     <form>
@@ -156,10 +208,6 @@ let AffordMonthly=(prop)=>{
     </form>
   )
 }
-
-
-
-
 
 
 function PersonalLoans() {
@@ -214,10 +262,7 @@ function PersonalLoans() {
 
   return (
   <div  class="container">
-      i am here 
-      <br/>
       {
-        
       fakeDB.map(oneLoan=>{
           let _amount= Math.round( ((oneLoan.interest_rate/100/12*oneLoan.compounding_period)*oneLoan.amount)+oneLoan.amount) ; 
           numCard+=1
@@ -246,9 +291,6 @@ function PersonalLoans() {
 }
 
 export default PersonalLoans;
-
-
-
 
 
 
