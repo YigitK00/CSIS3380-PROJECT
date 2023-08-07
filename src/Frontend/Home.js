@@ -1,6 +1,6 @@
 import React, { Component, useState } from 'react';
 import { useIsAuthenticated } from 'react-auth-kit';
-import axios from "axios";
+import axios from 'axios';
 import LoanCard from './Util/LoanCard';
 
 const LoansDashboard = () => {
@@ -12,34 +12,34 @@ const LoansDashboard = () => {
     const textArray = text.split('%22:%22');
 
     return textArray[1];
-  }
+  };
 
   const [loans, setLoans] = useState([]);
   useState(() => {
     axios
-    .get(`http://localhost:4000/${userEmail()}`)
-    .then((res) => {
-      setLoans(res.data);
-    })
-    .catch((err) => {
-      console.log(err);
-    });
+      .get(`http://localhost:4000/${userEmail()}`)
+      .then(res => {
+        setLoans(res.data);
+      })
+      .catch(err => {
+        console.log(err);
+      });
   }, []);
 
-  const deleteLoan = (id) => {
+  const deleteLoan = id => {
     axios
       .delete('http://localhost:4000/' + id)
-      .then((response) => {
+      .then(response => {
         console.log(response.data);
       })
-      .catch((err) => {
+      .catch(err => {
         console.log(err);
       });
 
-      setLoans(loans.filter((loan) => loan._id !== id));
+    setLoans(loans.filter(loan => loan._id !== id));
   };
 
-  const editLoan = (id) => {
+  const editLoan = id => {
     window.location = '/' + id;
   };
 
@@ -47,56 +47,58 @@ const LoansDashboard = () => {
     return (
       <div className="main-content home">
         <h1 className="heading">Welcome Back, {userEmail()}!</h1>
-        <br/>
+        <br />
         <h2>Here are your loans and investments</h2>
-        <div >
-        {loans.map(oneLoan=>{
-            let _amount= Math.round( ((oneLoan.interest_rate/100/12*oneLoan.compounding_period)*oneLoan.amount)+oneLoan.amount) ; 
-    
-            return <LoanCard 
-              id={oneLoan._id}
-              edit={editLoan}
-              delete={deleteLoan}
-    
-              name={oneLoan.name}
-              amount={oneLoan.amount}
-              interest_rate={oneLoan.interest_rate}
-              due_in={oneLoan.term}
-              life_time_cost={_amount}
-            />
-        })}
+        <div>
+          {loans.map(oneLoan => {
+            let _amount = Math.round(
+              (oneLoan.interest_rate / 100 / 12) *
+                oneLoan.compounding_period *
+                oneLoan.amount +
+                oneLoan.amount
+            );
 
+            return (
+              <LoanCard
+                id={oneLoan._id}
+                edit={editLoan}
+                delete={deleteLoan}
+                name={oneLoan.name}
+                amount={oneLoan.amount}
+                interest_rate={oneLoan.interest_rate}
+                due_in={oneLoan.term}
+                life_time_cost={_amount}
+              />
+            );
+          })}
         </div>
       </div>
     );
-  }
-  else {
+  } else {
     return (
       <div className="main-content home">
         <h1 className="heading">Welcome Back, {userEmail()}!</h1>
-        <br/>
+        <br />
         <h2>You don't have any loans or investments</h2>
       </div>
-    )
+    );
   }
-}
+};
 
 function Home() {
   const isAuthenticated = useIsAuthenticated();
   const auth = isAuthenticated();
 
   if (auth) {
-    return <LoansDashboard/>
-  }
-
-  else {
+    return <LoansDashboard />;
+  } else {
     return (
       <div className="main-content home">
-        <h1 className="heading">Welcome to Loanwolf!</h1>
-        <br/>
+        <h1 className="heading welcome">Welcome to Loanwolf!</h1>
+        <br />
         <h2>Additional business info</h2>
-    </div>
-    )
+      </div>
+    );
   }
 }
 export default Home;
