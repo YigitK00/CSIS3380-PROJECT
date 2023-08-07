@@ -314,7 +314,9 @@ footer {
   background-color: #fff;
   position: fixed;
   margin-top: 10%;
+  left:0;
   bottom: 0;
+  right: 0;
   width: 100%;
   padding: 50px;
   text-align: center;
@@ -437,4 +439,12 @@ ABOUT US PAGE
     width: 100%;
     display: block;
   }
+}
+
+#root {
+  padding-bottom:60px;
+}
+
+.wrapper {
+  padding-bottom:10em;
 }

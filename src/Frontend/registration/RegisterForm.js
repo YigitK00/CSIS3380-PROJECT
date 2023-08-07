@@ -2,12 +2,10 @@ import React from 'react';
 import { useFormik } from "formik";
 import axios, {AxiosError} from "axios";
 import {useState} from 'react';
-import { useNavigate } from 'react-router-dom';
 import { useSignIn } from 'react-auth-kit';
 
 function RegisterForm() {
   const [error, setError] = useState("");
-  const navigate = useNavigate();
   const signIn = useSignIn();
   const onSubmit = async(values) => {
     console.log("Values: ", values);
