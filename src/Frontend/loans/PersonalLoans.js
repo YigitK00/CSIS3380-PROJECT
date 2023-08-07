@@ -69,16 +69,81 @@ class PersonalLoansChart extends Component {
       // what is the total loan amount?
       //https://www.bing.com/images/search?view=detailV2&ccid=ov9ThjfK&id=E9A7704E8F137EC650934CD9228A5E22BF86E49F&thid=OIP.ov9ThjfKlENZ7ZPeUBsU0AHaFj&mediaurl=https%3a%2f%2fwww.wikihow.com%2fimages%2fthumb%2f4%2f4c%2fCalculate-Bank-Interest-on-Savings-Step-2-Version-5.jpg%2faid1403590-v4-728px-Calculate-Bank-Interest-on-Savings-Step-2-Version-5.jpg&cdnurl=https%3a%2f%2fth.bing.com%2fth%2fid%2fR.a2ff538637ca944359ed93de501b14d0%3frik%3dn%252bSGvyJeiiLZTA%26pid%3dImgRaw%26r%3d0&exph=546&expw=728&q=what+is+the+formula+for+compound+interest&simid=608050366173242587&FORM=IRPRST&ck=6EA9BBB14923FE3CDE91FC75F520FAD6&selectedIndex=0&idpp=overlayview&ajaxhist=0&ajaxserp=0
         
-      loans.map(loan=>{
+
+      //data_for_one_loan
+      // loans.map(loan=>{
         // {month:1 total_principle: interest: }
         // {month:2 total_principle: interest: }
           // loan 1 compounds every 2 months so new month 2 
           // {month:2 total_principle: total_principle+=loan.amount interest }
-          // "but the interest earned is based on the old principle"n
-          
+          // "but the interest earned is based on the old principle"
+            // newPrince= oldPrince + oldPrince*oneLoan.interestrate/100
+            
+          //for (let i=0; i< loan.term; i++){
+            // 44 months there will be gaps..   { null } .. set it with the existing values
+              // if( month of compound){ // i:5    month..:4 month % i ==0
+              // list_of_months[month of compound-1]. total_principle+= interest 
+              // list_of_months[month of compound-1]. interest= interest 
+            // }
+          // }else{
+            //use previous entry
+          // }
 
-      })
+          //data_for_one_loan.map(loan=>{ add the values together.  })
+          // each month i make the minimal payment. 
+        // })
+    
+  // algorithm to implement. 
 
+  let all_loans_combined=[]
+  let loan_one_month={month:0 , total_principle:0, total_interest:0}
+
+  let longest=0; // i++
+  let loan_instance=0
+  let counter=0
+  loans.map(loan=>{
+    if(loan.term >longest){
+      longest=loan.term
+      loan_instance=counter
+    }
+    counter+=1
+  })
+  for(let i=0; i<loans[loan_instance]; i++){
+      all_loans_combined.push(new loan_one_month)
+  }
+    // populate all_loans_combined with the length of the longest loan.term
+
+
+  loans.map(loan=>{
+    //reset the values for new loan
+    loan_one_month={month:0 , total_principle:0, total_interest:0}
+
+    for(let i=0; i<loan.term; i++){
+      if( Math.floor(loan.compounding_period/12) % i ==0 ){
+
+        //first loan in sequence
+        if(all_loans_combined[i].total_principle ==0 || all_loans_combined[i]==null){
+
+            loan_one_month.month=i
+            loan_one_month.total_principle=loan.amount
+            loan_one_month.total_interest=loan.interest_rate/100* loan.amount
+
+            all_loans_combined[i].push(loan_one_month)
+          }else{
+            // add the new values to the old as the loan compounds
+            loan_one_month.month=i
+
+            let _interest =loan_one_month.total_principle* loan.interest_rate/100
+            loan_one_month.total_interest +=  _interest
+            loan_one_month.total_principle=  loan_one_month.total_principle +_interest
+
+            all_loans_combined[i].push(loan_one_month)
+          }
+      }
+    }
+
+
+  })
 
 
 
@@ -214,10 +279,7 @@ function PersonalLoans() {
 
   return (
   <div  class="container">
-      i am here 
-      <br/>
       {
-        
       fakeDB.map(oneLoan=>{
           let _amount= Math.round( ((oneLoan.interest_rate/100/12*oneLoan.compounding_period)*oneLoan.amount)+oneLoan.amount) ; 
           numCard+=1
@@ -246,9 +308,6 @@ function PersonalLoans() {
 }
 
 export default PersonalLoans;
-
-
-
 
 
 
