@@ -365,7 +365,6 @@ NAVBAR CONTENTS
   align-items: center;
 }
 
-<<<<<<< Updated upstream
 /*-------
 HOME PAGE
 -------*/
@@ -382,7 +381,7 @@ HOME PAGE
 .home h2 {
   font-size: 30px;
 }
-=======
+
 /*-------------
 ABOUT US PAGE
 -------------*/
@@ -431,4 +430,3 @@ ABOUT US PAGE
 .about-img {
   width: 100%;
 }
->>>>>>> Stashed changes
