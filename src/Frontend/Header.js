@@ -1,10 +1,11 @@
 import React from 'react';
 import { NavLink, useNavigate } from 'react-router-dom';
-import Navigation from './Navigation';
 import { useIsAuthenticated } from 'react-auth-kit';
 import { useSignOut } from 'react-auth-kit';
+import Navigation from './Navigation'
 
 const Authentication = () => {
+  const navigate = useNavigate();
   const signOut = useSignOut();
   const logout = () => {
     signOut();
