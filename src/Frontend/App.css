@@ -1,48 +1,54 @@
+/*--------
+LOAN CHART
+--------*/
 
-/*--------------------
-loan Chart
---------------------*/
 .chart h1 {
   text-align: center;
   margin-top: 5%;
   margin-bottom: 2%;
 }
-.chart h4{
+
+.chart h4 {
   text-align: center;
 }
 
-.chart{
+.chart {
   background-color: white;
 }
 
+/*-------
+LOAN CARD
+-------*/
 
-
-/*------------
-Loan Card
-------------*/
-.card{
+.card {
   background-color: #f8fcff;
   margin: 4% 2% 2% 5%;
   padding: 4%;
-  display:inline-flex;
+  display: inline-flex;
   width: 33%;
 
-  border-style:dashed;
-  
+  border-style: dashed;
 }
-.card h2{
+
+.card h2 {
   text-align: center;
   text-decoration: underline;
 }
-.card button{
+
+.card button {
   margin-left: 15%;
   margin-right: 5%;
-  display:inline-block;
+  display: inline-block;
   margin-top: 2%;
 }
-.container{
+
+.container {
   background-color: rgb(244, 247, 234);
 }
+
+/*-------------
+GLOBAL STYLINGS
+-------------*/
 
 html {
   height: 100%;
@@ -67,6 +73,12 @@ body {
 }
 
 .heading {
+  display: flex;
+  text-align: center;
+}
+
+h2 {
+  display: flex;
   text-align: center;
 }
 
@@ -98,7 +110,6 @@ h1 {
   position: relative;
   background-color: #fff;
   list-style-type: none;
-
 }
 
 .nav-links li a {
@@ -224,7 +235,7 @@ LOGIN and SIGN-UP FORM
 form {
   /* border: 2px solid #000; */
   width: 25%;
-  height: 30vh;
+  height: 5vh;
 }
 
 form label {
@@ -299,7 +310,7 @@ FOOTER
 
 footer {
   background-color: #fff;
-  /* position: fixed; */
+  position: fixed;
   margin-top: 10%;
   bottom: 0;
   width: 100%;
@@ -352,4 +363,21 @@ NAVBAR CONTENTS
   display: flex;
   justify-content: center;
   align-items: center;
+}
+
+/*-------
+HOME PAGE
+-------*/
+
+.home {
+  flex-direction: column;
+}
+
+.welcome {
+  font-size: 44px;
+  font-weight: 600;
+}
+
+.home h2 {
+  font-size: 30px;
 }
