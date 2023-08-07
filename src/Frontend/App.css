@@ -391,16 +391,15 @@ ABOUT US PAGE
   box-sizing: inherit;
 }
 
-.column {
+.about-column {
   float: left;
-  width: 33.3%;
+  width: 33%;
   margin-bottom: 16px;
-  padding: 0 8px;
 }
 
-.card {
+.about-card {
   box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
-  margin: 8px;
+  margin: 0.5em;
 }
 
 .about-section {
@@ -410,11 +409,11 @@ ABOUT US PAGE
   color: white;
 }
 
-.container {
+.about-container {
   padding: 0 16px;
 }
 
-.container::after, .row::after {
+.about-container::after, .row::after {
   content: "";
   clear: both;
   display: table;
@@ -431,4 +430,11 @@ ABOUT US PAGE
 
 .about-img {
   width: 100%;
+}
+
+@media screen and (max-width: 650px) {
+  .about-column {
+    width: 100%;
+    display: block;
+  }
 }
