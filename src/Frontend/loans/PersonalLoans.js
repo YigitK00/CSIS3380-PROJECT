@@ -7,8 +7,8 @@ import CanvasJSReact from '@canvasjs/react-charts';
 
 let fakeDB=[
   {"email":"ryarwood0@ed.gov","type":"","expense":false,"name":"personal loan","amount":100,"interest_rate":5,"term":12,"compounding_period":2},
-  // {"email":"dstill1@examiner.com","type":"","expense":false,"name":"personal loan","amount":4330,"interest_rate":4,"term":32,"compounding_period":7},
-  // {"email":"zjorio9@g.co","type":"","expense":true,"name":"personal loan","amount":4883,"interest_rate":5,"term":44,"compounding_period":9}
+  {"email":"dstill1@examiner.com","type":"","expense":false,"name":"personal loan","amount":100,"interest_rate":7,"term":12,"compounding_period":3},
+  {"email":"zjorio9@g.co","type":"","expense":true,"name":"personal loan","amount":200,"interest_rate":5,"term":44,"compounding_period":3}
 ]
 
 
@@ -79,38 +79,34 @@ class PersonalLoansChart extends Component {
           all_loans_combined.push({...loan_one_month} )
       } 
 
+      let previous_loan_amout=0
+      counter=0
       loans.map(loan=>{
+        loan_one_month={month:0 , y:0, total_interest:0}
+
 
         let monthCompoundedOn=Math.round(12/loan.compounding_period)
         let interest=0
         for(let month=0; month<loan.term ;month++){
-          if( (month+1) % monthCompoundedOn ==0 ){
-              // interest is generated 
-              interest= loan.amount *(loan.interest_rate/100/12) *monthCompoundedOn
-              loan.amount+=interest
-
-              all_loans_combined[month].month=month
-              all_loans_combined[month].y=loan.amount
-              all_loans_combined[month].total_interest=interest
-
-              // assign this value at month
-
-          }else{
-            all_loans_combined[month].month=month
-            all_loans_combined[month].y=loan.amount
-            all_loans_combined[month].total_interest=interest
-
+          if( (month+1) % monthCompoundedOn ==0 ){ // interest is generated 
+            interest= loan.amount *(loan.interest_rate/100/12) *monthCompoundedOn
+            loan.amount+=interest
           }
+          if(counter!=0){
+              all_loans_combined[month].y =previous_loan_amout
+          }
+          all_loans_combined[month].month=month
+          all_loans_combined[month].y+=loan.amount
+          all_loans_combined[month].total_interest+=interest
+        }  
+        previous_loan_amout+=loan.amount
+        counter+=1        
 
-        }
-      
-        console.log("jhere")
       })
+      
 
 
       all_loans_combined.map(loan=>{options.data[0].dataPoints.push(loan)})
-    
-
   }
 
 
