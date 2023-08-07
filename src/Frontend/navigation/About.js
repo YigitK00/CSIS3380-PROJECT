@@ -16,7 +16,7 @@ const About = () => (
             <h2 class="about-heading">Bill</h2>
             <p class="title">Back End Developer</p>
             <p>Bill is a passionate software engineer who specializes in server-side engineering.</p>
-            <p>bill@loanwolf.com</p>
+            <p class="about-desc">bill@loanwolf.com</p>
           </div>
         </div>
       </div>
@@ -28,7 +28,7 @@ const About = () => (
             <h2 class="about-heading">Cristi</h2>
             <p class="title">Database Engineer and Loans Specialist</p>
             <p>Cristi is a visionary loans specialist who brought the idea to life and managed the databases.</p>
-            <p>cristi@loanwolf.com</p>
+            <p class="about-desc">cristi@loanwolf.com</p>
           </div>
         </div>
       </div>
@@ -40,7 +40,7 @@ const About = () => (
             <h2 class="about-heading">Yigit</h2>
             <p class="title">Front End Developer</p>
             <p>Yigit is Loanwolf's client-side wizard who is responsible for beautiful UIs and intuitive user experience.</p>
-            <p>yigit@loanwolf.com</p>
+            <p class="about-desc">yigit@loanwolf.com</p>
           </div>
         </div>
       </div>
