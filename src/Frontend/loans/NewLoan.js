@@ -20,7 +20,7 @@ function NewLoan() {
     console.log('Values: ', values);
 
     try {
-      await axios.post('http://localhost:4000/newloan', values, {
+      await axios.post('https://ajax-api-qzf9.onrender.com/newloan', values, {
         headers: { 'Access-Control-Allow-Origin': true },
       });
       navigate('/');
