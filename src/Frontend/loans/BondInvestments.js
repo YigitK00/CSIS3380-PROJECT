@@ -51,6 +51,7 @@ function BondInvestments() {
   };
 
   if (loans.length > 0) {
+    
     return (
       <div >
         {loans.map(oneLoan=>{
@@ -72,6 +73,8 @@ function BondInvestments() {
       </div>
     );
   }
+
+  
   else {
     return (
       <div>
