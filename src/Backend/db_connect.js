@@ -22,7 +22,5 @@ module.exports={
 }
 
 
-
-
 // .then(()=>{console.log() })
 // .catch(()=>{console.log() })
