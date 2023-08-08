@@ -49,10 +49,10 @@ const LoansDashboard = () => {
 
   if (loans.length > 0) {
     return (
-      <div className="main-content home">
+      <div className="homepage">
         <h1 className="heading">Welcome Back, {userEmail()}!</h1>
         <br />
-        <h2>Here are your loans and investments</h2>
+        <h1 className="heading">Here are your loans and investments</h1>
         <div>
           {loans.map(oneLoan => {
             let _amount = Math.round(

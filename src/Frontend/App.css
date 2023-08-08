@@ -379,7 +379,6 @@ NAVBAR CONTENTS
 -------------*/
 
 .main-content {
-  display: flex;
   justify-content: center;
   align-items: center;
 }
@@ -398,8 +397,8 @@ HOME PAGE
   font-weight: bold;
 }
 
-.home h2 {
-  font-size: 30px;
+.homepage {
+  padding-bottom: 3em;
 }
 
 /*-------------
