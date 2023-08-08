@@ -35,7 +35,7 @@ const About = () => (
 
       <div class="about-column">
         <div class="about-card">
-          <img class="about-img" src="/Bill.jpg" alt="Bill"/>
+          <img class="about-img" src="/Yigit.jpg" alt="Bill"/>
           <div class="about-container">
             <h2 class="about-heading">Yigit</h2>
             <p class="title">Front End Developer</p>
