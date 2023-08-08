@@ -42,7 +42,6 @@ router.post("/newloan/", async (req, res)=>{
 router.get("/loans", async(req, res)=>{
      await db.connect();
      const users = await loanCrud.getAllLoans();
-     await db.disconnect();
           res.status(200).json({res:users});
 })
 //find loans by email

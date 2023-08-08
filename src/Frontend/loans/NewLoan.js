@@ -37,7 +37,7 @@ function NewLoan() {
   const formik = useFormik({
     initialValues: {
       email: userEmail(),
-      type: '',
+      type: 'Personal',
       expense: '',
       name: '',
       amount: '',
