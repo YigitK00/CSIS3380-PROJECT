@@ -75,18 +75,20 @@ function PersonalLoans() {
             }
           }
         
-
+console.log(oneLoan.amount)
           return <LoanCard 
             id={oneLoan._id}
             edit={editLoan}
             delete={deleteLoan}
 
             name={oneLoan.name}
-            amount={oneLoan.amount}
+            amount={oneLoan.amount.toFixed(2)}
             interest_rate={oneLoan.interest_rate}
+
             due_in={oneLoan.term}
             life_time_cost={compounded_amount.toFixed(2)}
           />
+          
           
 })}
 
