@@ -51,7 +51,7 @@ const Header = () => (
             <NavLink to="/contact">Contact Us</NavLink>
           </li>
           <li>
-            <NavLink to="/support">Support</NavLink>
+            <NavLink to="/support">GitHub</NavLink>
           </li>
         </ul>
         {/* <ul className="login-signup">

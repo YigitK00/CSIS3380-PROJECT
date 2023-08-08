@@ -530,3 +530,13 @@ CONTACT US PAGE
   margin-left: 2em;
   display: block;
 }
+
+.github {
+  align-items: center;
+  text-align: center;
+}
+
+.github-link {
+  align-items: center;
+  text-align: center;
+}
