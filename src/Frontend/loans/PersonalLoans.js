@@ -2,169 +2,14 @@ import React, { Component, useState } from 'react';
 import axios, { all } from "axios";
 import LoanCard from '../Util/LoanCard';
   
-import CanvasJSReact from '@canvasjs/react-charts';
-
+import PersonalLoansChart from "../Util/depreciationGraph"
 
 let fakeDB=[
-  // {"email":"ryarwood0@ed.gov","type":"","expense":false,"name":"personal loan","amount":100,"interest_rate":5,"term":7,"compounding_period":2},
-  {"email":"ryarwood0@ed.gov","type":"","expense":false,"name":"personal loan","amount":100,"interest_rate":5,"term":20,"compounding_period":2},
-  {"email":"ryarwood0@ed.gov","type":"","expense":false,"name":"personal loan","amount":440,"interest_rate":5,"term":20,"compounding_period":2},
+  {"email":"ryarwood0@ed.gov","type":"","expense":false,"name":"personal loan","amount":100,"interest_rate":7.5,"term":24,"compounding_period":2},
+  {"email":"ryarwood0@ed.gov","type":"","expense":false,"name":"personal loan","amount":100,"interest_rate":5,"term":12,"compounding_period":4},
 ]
 
 
-
-// var CanvasJS = CanvasJSReact.CanvasJS;
-var CanvasJSChart = CanvasJSReact.CanvasJSChart;
-
-class PersonalLoansChart extends Component {
-  render() {
-    const {chartTitle, paymentType, data } = this.props;
-    let options = {
-      animationEnabled: true,
-      exportEnabled: true,
-      theme: 'light2', // "light1", "dark1", "dark2"
-      title: {
-        // text: 'se the titile of the chart ',
-        // text: 'se the titile of the chart ',
-      },
-
-      axisY: {
-        title: 'Principle ',
-        includeZero: false,
-        prefix: '$',
-      },
-
-      axisX: {
-        title: 'Months of Year',
-        prefix: 'M',
-        interval: 2,
-      },
-
-      data: [
-        {
-          type: 'line',
-          toolTipContent: 'Month {month}: principle {y} interest {total_interest} ',
-          dataPoints: [],
-        },
-
-      ],
-      // let loan_one_month={month:0 , total_principle:0, total_interest:0}
-
-
-    };
-
-  // // Declare a state variable and its corresponding setter function using the useState hook
-  // const [monthlyCanAfford, setMonthlyCanAfford] = useState(0)
-  let setMonthlyCanAfford=0;
-  const updateMonthlyCanAfford = (amount) => {
-    if (isNaN(amount)) {
-      setMonthlyCanAfford(0);
-    } else {
-      setMonthlyCanAfford(amount);
-    }
-  }
-  
-
-    let setUpandAddData=(loans)=>{
-    
-      let all_loans_combined=[]
-      let loan_one_month={month:0 , y:0, total_interest:0}
-
-      let longest=0; // i++
-      let loan_instance=0
-      let counter=0
-      loans.map(loan=>{
-        if(loan.term >longest){
-          longest=loan.term
-          loan_instance=counter
-        }
-        counter+=1
-      })
-      for(let i=0; i<loans[loan_instance].term; i++){ 
-          all_loans_combined.push({...loan_one_month} )
-      } 
-
-      let previous_loan_amout=0
-      counter=0
-      loans.sort((a,b)=>b.amount-a.amount)
-      let monthlyPayment=50
-      loans.map(loan=>{
-        loan_one_month={month:0 , y:0, total_interest:0}
-        let monthCompoundedOn=Math.round(12/loan.compounding_period)
-        let interest=0
-        for(let month=0; month<loan.term ;month++){
-          if( (month+1) % monthCompoundedOn ==0 ){ // interest is generated 
-            interest= all_loans_combined[month-1].y *(loan.interest_rate/100/12) *monthCompoundedOn
-            loan.amount+=interest
-          }
-          if(counter!=0){
-              all_loans_combined[month].y =previous_loan_amout
-          }
-          all_loans_combined[month].month=month
-          all_loans_combined[month].y+=loan.amount -monthlyPayment *month
-          all_loans_combined[month].total_interest+=interest
-
-          if(all_loans_combined[month].y <=0){
-            break
-          }
-        }  
-        previous_loan_amout+=loan.amount
-        counter+=1        
-      })
-      // the loan compounding 
-
-
-
-      all_loans_combined.map(loan=>{options.data[0].dataPoints.push(loan)})
-  }
-
-  return (
-      <div class="chart">
-        {
-        }
-
-        <h1>Months to pay off {chartTitle} Loan</h1>
-        <h4>Using {paymentType} Payment, compounding display of largest loan</h4>
-
-        <AffordMonthly
-          monthlyCanAfford={updateMonthlyCanAfford}
-        />
-        <br/>
-        <br/>
-        <br/>
-        <br/>
-
-
-        {
-          setUpandAddData(data)// need the amount the user can afford to pay monthly
-          // i set up the data for the graph
-        }
-        <CanvasJSChart
-          options={options}
-          
-
-/>
-        {/*You can get reference to the chart instance as shown above using onRef. This allows you to access all chart properties and methods*/}
-      </div>
-    );
-  }
-}
-
-let AffordMonthly=(prop)=>{
-  return (
-    <div >
-        <label >How much can you afford monthly </label>
-        <input type="number"  id="amount" placeholder='25' required></input>
-        <button type='submit'
-        onClick={()=>{
-          prop.monthlyCanAfford(
-            document.getElementById("amount").value
-          )
-        }}
-        >Update chart</button>
-    </div>
-  )
-}
 
 function PersonalLoans() {
 
@@ -214,34 +59,53 @@ function PersonalLoans() {
     window.location = '/update/' + id;
   };
 
+  if (loans.length > 0) {
 
-  return (
-  <div  class="container">
-      {
-      fakeDB.map(oneLoan=>{
-          let _amount= Math.round( ((oneLoan.interest_rate/100/12*oneLoan.compounding_period)*oneLoan.amount)+oneLoan.amount) ; 
+    return (
+    <div  class="container">
+        {
+        loans.map(oneLoan=>{
+            let compounded_amount=oneLoan.amount
+            let monthCompoundedOn=Math.round(12/oneLoan.compounding_period)
 
-          return <LoanCard 
-            id={oneLoan._id}
-            edit={editLoan}
-            delete={deleteLoan}
+            let interest=0
+            for(let month=0; month<oneLoan.term ;month++){
+              if( (month+1) % monthCompoundedOn ==0 ){ // interest is generated 
+                interest= compounded_amount *(oneLoan.interest_rate/100/12) *monthCompoundedOn
+                compounded_amount+=interest
+              }
+            }
+          
+            return <LoanCard 
+              id={oneLoan._id}
+              edit={editLoan}
+              delete={deleteLoan}
 
-            name={oneLoan.name}
-            amount={oneLoan.amount}
-            interest_rate={oneLoan.interest_rate}
-            due_in={oneLoan.term}
-            life_time_cost={_amount}
-          />
+              name={oneLoan.name}
+              amount={oneLoan.amount}
+              interest_rate={oneLoan.interest_rate}
+              due_in={oneLoan.term}
+              life_time_cost={compounded_amount.toFixed(2)}
+            />
+      
       })}
 
-      <PersonalLoansChart 
-        chartTitle={loanType} 
-        paymentType="minimal"
-        data={fakeDB}
+        <PersonalLoansChart 
+          chartTitle={loanType} 
+          paymentType="minimal"
+          data={loans}
+      />
 
-    />
-    </div>
-  );
+      </div>
+    );
+    }
+    else {
+      return (
+        <div>
+          <h1 className="heading">No investments available</h1>
+        </div>
+      )
+    }
 }
 
 export default PersonalLoans;
