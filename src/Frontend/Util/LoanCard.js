@@ -7,8 +7,7 @@ export default function LoanCard (prop){
 return (
      <div className="card">
           <h2>{prop.name}</h2>
-          <span>${prop.amount} interest rate of {prop.interest_rate}% due in {prop.due_in} 
-          months will cost ${prop.life_time_cost} over the course of its lifetime.</span>
+          <span>${prop.amount} interest rate of {prop.interest_rate}% due in {prop.due_in} months will cost ${prop.life_time_cost} over the course of its lifetime.</span>
      <br/>
     
     <div>
