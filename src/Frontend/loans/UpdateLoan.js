@@ -5,7 +5,7 @@ import { useNavigate } from 'react-router-dom';
 import { useState } from 'react';
 
 function UpdateLoan() {
-  const id = window.location.pathname
+  const id = window.location.pathname;
 
   const navigate = useNavigate();
   const [error, setError] = useState('');
@@ -13,7 +13,7 @@ function UpdateLoan() {
     console.log('Values: ', values);
 
     try {
-      await axios.put(`http://localhost:4000${id}`, values, {
+      await axios.put(`https://ajax-api-qzf9.onrender.com/${id}`, values, {
         headers: { 'Access-Control-Allow-Origin': true },
       });
       navigate('/');

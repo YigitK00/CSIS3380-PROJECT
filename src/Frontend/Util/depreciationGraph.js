@@ -1,60 +1,19 @@
-import React, { Component, useState } from 'react';
-  
+import React from 'react';
 import CanvasJSReact from '@canvasjs/react-charts';
 
-// var CanvasJS = CanvasJSReact.CanvasJS;
-var CanvasJSChart = CanvasJSReact.CanvasJSChart;
-
-export default class PersonalLoansChart extends Component {
-  render() {
-    const {chartTitle, paymentType, data } = this.props;
-    let options = {
-      animationEnabled: true,
-      exportEnabled: true,
-      theme: 'light2', // "light1", "dark1", "dark2"
-      title: {
-        // text: 'se the titile of the chart ',
-        // text: 'se the titile of the chart ',
-      },
-
-      axisY: {
-        title: 'Principle ',
-        includeZero: false,
-        prefix: '$',
-      },
-
-      axisX: {
-        title: 'Months of Year',
-        prefix: 'M',
-        interval: 2,
-      },
-
-      data: [
-        {
-          type: 'line',
-          toolTipContent: 'Month {month}: principle {y} interest {total_interest} ',
-          dataPoints: [],
-        },
-
-      ],
-      // let loan_one_month={month:0 , total_principle:0, total_interest:0}
-
-
-    };
-
+function PersonalLoansChart(props) {
   // // Declare a state variable and its corresponding setter function using the useState hook
-  // const [monthlyCanAfford, setMonthlyCanAfford] = useState(0)
-  let setMonthlyCanAfford=0;
-  const updateMonthlyCanAfford = (amount) => {
+  const CanvasJSChart = CanvasJSReact.CanvasJSChart;
+  let monthlyCanAfford = 0
+  function setMonthlyCanAfford (amount) {
     if (isNaN(amount)) {
-      setMonthlyCanAfford(0);
+      monthlyCanAfford = 0;
     } else {
-      setMonthlyCanAfford(amount);
+      monthlyCanAfford = amount;
     }
   }
   
-
-    let setUpandAddData=(loans)=>{
+    const setUpandAddData=(loans)=>{
     
       let all_loans_combined=[]
       let loan_one_month={month:0 , y:0, total_interest:0}
@@ -69,6 +28,7 @@ export default class PersonalLoansChart extends Component {
         }
         counter+=1
       })
+      console.log(loans)
       for(let i=0; i<loans[loan_instance].term; i++){ 
           all_loans_combined.push({...loan_one_month} )
       } 
@@ -76,11 +36,17 @@ export default class PersonalLoansChart extends Component {
       let previous_loan_amout=0
       counter=0
       loans.sort((a,b)=>b.amount-a.amount)
-      let monthlyPayment=35
+      let monthlyPayment=monthlyCanAfford
 
       loans.map(loan=>{
         loan_one_month={month:0 , y:0, total_interest:0}
-        let monthCompoundedOn=Math.round(12/loan.compounding_period)
+        const x = 12/loan.compounding_period
+        let monthCompoundedOn = 0
+        if (Math.round(x)>1) {
+          monthCompoundedOn = Math.round(x)
+        } else {
+          monthCompoundedOn = 2
+        }
         let interest=0
         for(let month=0; month<loan.term ;month++){
           if( (month+1) % monthCompoundedOn ==0 ){ // interest is generated 
@@ -90,37 +56,73 @@ export default class PersonalLoansChart extends Component {
           if(counter!=0){
               all_loans_combined[month].y =previous_loan_amout
           }
-          all_loans_combined[month].month=month
-          all_loans_combined[month].y+=loan.amount -monthlyPayment *month
-          all_loans_combined[month].total_interest+=interest
+            all_loans_combined[month].month=month
+            all_loans_combined[month].y+=loan.amount -monthlyPayment *month
+            all_loans_combined[month].total_interest+=interest
 
-          if(all_loans_combined[month].y <=0){
-            break
-          }
+              if(all_loans_combined[month].y <=0){
+                break
+              }
         }  
         previous_loan_amout+=loan.amount
         counter+=1        
       })
       // the loan compounding 
 
-
-
       all_loans_combined.map(loan=>{options.data[0].dataPoints.push(loan)})
+  }
+
+  const options = {
+    animationEnabled: true,
+    exportEnabled: true,
+    theme: 'light2', // "light1", "dark1", "dark2"
+    title: {
+      // text: 'se the titile of the chart ',
+      // text: 'se the titile of the chart ',
+    },
+
+    axisY: {
+      title: 'Principle ',
+      includeZero: false,
+      prefix: '$',
+    },
+
+    axisX: {
+      title: 'Months of Year',
+      prefix: 'M',
+      interval: 2,
+    },
+
+    data: [
+      {
+        type: 'line',
+        toolTipContent: 'Month {month}: principle {y} interest {total_interest} ',
+        dataPoints: [],
+      },
+
+    ],
+    // let loan_one_month={month:0 , total_principle:0, total_interest:0}
   }
 
   return (
       <div class="chart">
-        <h1>Months to pay off {chartTitle} Loan</h1>
-        <h4>Using {paymentType} Payment, compounding display of largest loan</h4>
+        <h1 class="heading">Months to pay off {props.chartTitle} Loan</h1>
+        <h4>Using monthly payments, compounding display of largest loan</h4>
 
-        <AffordMonthly
-          monthlyCanAfford={updateMonthlyCanAfford}
-        />
+        <div class="monthly-input">
+          <label>How much can you afford monthly?</label>
+          <input type="number" class="monthly-amount" id="amount" placeholder='25' required></input>
+          <button type='submit' class="contact-submit"
+          onClick={()=>{  
+            setMonthlyCanAfford(document.getElementById("amount").value);
+          }}
+          >Update chart</button>
+        </div>
         <br/>
         <br/>
         <br/>
         <br/>
-        {setUpandAddData(data) }
+        {setUpandAddData(props.data) }
         {/* couldent figure out the card that goes with this -Afford monthly */}
         {/* change hard coded value on line 79  "let monthlyPayment=35" */}
 
@@ -128,21 +130,7 @@ export default class PersonalLoansChart extends Component {
      
       </div>
     );
-  }
 }
 
-let AffordMonthly=(prop)=>{
-  return (
-    <div >
-        <label >How much can you afford monthly </label>
-        <input type="number"  id="amount" placeholder='25' required></input>
-        <button type='submit'
-        onClick={()=>{
-          prop.monthlyCanAfford(
-            document.getElementById("amount").value
-          )
-        }}
-        >Update chart</button>
-    </div>
-  )
-}
+
+export default PersonalLoansChart;
