@@ -59,53 +59,45 @@ function PersonalLoans() {
     window.location = '/update/' + id;
   };
 
-  if (loans.length > 0) {
 
-    return (
-    <div  class="container">
-        {
-        loans.map(oneLoan=>{
-            let compounded_amount=oneLoan.amount
-            let monthCompoundedOn=Math.round(12/oneLoan.compounding_period)
+  return (
+  <div  class="container">
+      {
+      fakeDB.map(oneLoan=>{
+          let compounded_amount=oneLoan.amount
+          let monthCompoundedOn=Math.round(12/oneLoan.compounding_period)
 
-            let interest=0
-            for(let month=0; month<oneLoan.term ;month++){
-              if( (month+1) % monthCompoundedOn ==0 ){ // interest is generated 
-                interest= compounded_amount *(oneLoan.interest_rate/100/12) *monthCompoundedOn
-                compounded_amount+=interest
-              }
+          let interest=0
+          for(let month=0; month<oneLoan.term ;month++){
+            if( (month+1) % monthCompoundedOn ==0 ){ // interest is generated 
+              interest= compounded_amount *(oneLoan.interest_rate/100/12) *monthCompoundedOn
+              compounded_amount+=interest
             }
+          }
+        
+
+          return <LoanCard 
+            id={oneLoan._id}
+            edit={editLoan}
+            delete={deleteLoan}
+
+            name={oneLoan.name}
+            amount={oneLoan.amount}
+            interest_rate={oneLoan.interest_rate}
+            due_in={oneLoan.term}
+            life_time_cost={compounded_amount.toFixed(2)}
+          />
           
-            return <LoanCard 
-              id={oneLoan._id}
-              edit={editLoan}
-              delete={deleteLoan}
+})}
 
-              name={oneLoan.name}
-              amount={oneLoan.amount}
-              interest_rate={oneLoan.interest_rate}
-              due_in={oneLoan.term}
-              life_time_cost={compounded_amount.toFixed(2)}
-            />
-      
-      })}
+      <PersonalLoansChart 
+        chartTitle={loanType} 
+        paymentType="minimal"
+        data={fakeDB}
 
-        <PersonalLoansChart 
-          chartTitle={loanType} 
-          paymentType="minimal"
-          data={loans}
-      />
-
-      </div>
-    );
-    }
-    else {
-      return (
-        <div>
-          <h1 className="heading">No investments available</h1>
-        </div>
-      )
-    }
+    />
+    </div>
+  );
 }
 
 export default PersonalLoans;
