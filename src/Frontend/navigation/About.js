@@ -23,7 +23,7 @@ const About = () => (
 
       <div class="about-column">
         <div class="about-card">
-          <img class="about-img" src="/Bill.jpg" alt="Bill"/>
+          <img class="about-img" src="/Cristi.jpg" alt="Bill"/>
           <div class="about-container">
             <h2 class="about-heading">Cristi</h2>
             <p class="title">Database Engineer and Loans Specialist</p>
