@@ -4,6 +4,13 @@ import LoanCard from '../Util/LoanCard';
   
 import PersonalLoansChart from "../Util/depreciationGraph"
 
+let fakeDB=[
+  {"email":"ryarwood0@ed.gov","type":"","expense":false,"name":"personal loan","amount":100,"interest_rate":7.5,"term":24,"compounding_period":2},
+  {"email":"ryarwood0@ed.gov","type":"","expense":false,"name":"personal loan","amount":100,"interest_rate":5,"term":12,"compounding_period":4},
+]
+
+
+
 function PersonalLoans() {
 
   const userEmail = () => {
@@ -49,7 +56,7 @@ function PersonalLoans() {
   };
 
   const editLoan = (id) => {
-    window.location = '/' + id;
+    window.location = '/update/' + id;
   };
 
 
