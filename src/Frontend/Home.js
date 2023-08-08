@@ -43,6 +43,10 @@ const LoansDashboard = () => {
     window.location = '/' + id;
   };
 
+  const hideLoan = (id) => {
+    setLoans(loans.filter((loan) => loan._id !== id));
+  }
+
   if (loans.length > 0) {
     return (
       <div className="main-content home">
@@ -63,6 +67,7 @@ const LoansDashboard = () => {
                 id={oneLoan._id}
                 edit={editLoan}
                 delete={deleteLoan}
+                hide={hideLoan}
                 name={oneLoan.name}
                 amount={oneLoan.amount}
                 interest_rate={oneLoan.interest_rate}
