@@ -24,7 +24,6 @@ function NewLoan() {
         headers: { 'Access-Control-Allow-Origin': true },
       });
       navigate('/');
-
     } catch (err) {
       if (err && err instanceof AxiosError)
         setError(err.response?.data.message);
