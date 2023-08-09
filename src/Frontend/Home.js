@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import { useIsAuthenticated } from 'react-auth-kit';
 import axios from 'axios';
 import LoanCard from './Util/LoanCard';
+import { useNavigate } from 'react-router-dom';
 
 const LoansDashboard = () => {
   const userEmail = () => {
@@ -81,16 +82,22 @@ const LoansDashboard = () => {
     );
   } else {
     return (
-      <div className="main-content home">
+      <div className="homepage">
         <h1 className="heading">Welcome Back, {userEmail()}!</h1>
         <br />
-        <h2>You don't have any loans or investments</h2>
+        <h1 className='heading' >You don't have any loans or investments</h1>
       </div>
     );
   }
 };
 
 function Home() {
+  const navigate = useNavigate();
+  
+  const navigateLogin = () =>{
+    navigate("/login");
+  }
+
   const isAuthenticated = useIsAuthenticated();
   const auth = isAuthenticated();
 
@@ -98,12 +105,61 @@ function Home() {
     return <LoansDashboard />;
   } else {
     return (
-      <div className="main-content home">
-        <h1 className="heading welcome">Welcome to Loanwolf!</h1>
-        <br />
-        <h2>Additional business info</h2>
+      <div className="about-container">
+        <div class="about-section">
+          <h1 className='heading'>Welcome to Loanwolf!</h1>
+          <br/>
+          <p>Loanwolf is a beautiful web applicaton that serves as a convenient solutions for users to keep track of their loans and investments.</p>
+          <br/>
+          <button type="button" class="get-started" onClick={navigateLogin}>Get Started</button>
+        </div>
+
+        <div class="row">
+
+          {
+            <Card 
+            img= "/home1.png"
+            title="Create an Account"
+            dev= "Step 1"
+            work="Create an account using our simple and intuitive register form"
+          />
+          }
+
+        {
+            <Card 
+            img= "/home2.png"
+            title="Create a New Loan or Investment"
+            dev= "Step 2"
+            work="Create a new loan or investment using the creation tool in the side navigation menu"
+          />
+          }
+
+        {
+            <Card 
+            img= "/home3.png"
+            title="Track Your Loan and Investment"
+            dev= "Step 3"
+            work="Track your loans and investments using information cards and a composite chart displaying the principal amount throughout its maturity period"
+          />
+          }
+        </div>
       </div>
     );
   }
+}
+
+let Card=(prop)=>{
+  return(
+    <div class="about-column">
+    <div class="about-card">
+      <img class="about-img" src={prop.img} alt={prop.dev}/>
+      <div class="about-container">
+        <h2 class="about-heading">{prop.dev}</h2>
+        <p class="title">{prop.title}</p>
+        <p>{prop.work}</p>
+      </div>
+    </div>
+  </div>
+  )
 }
 export default Home;
