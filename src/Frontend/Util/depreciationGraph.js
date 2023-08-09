@@ -8,8 +8,10 @@ function PersonalLoansChart(props) {
   function setMonthlyCanAfford (amount) {
     if (isNaN(amount)) {
       monthlyCanAfford = 0;
+      window.location.reload();
     } else {
       monthlyCanAfford = amount;
+      window.location.reload();
     }
   }
   
@@ -21,7 +23,7 @@ function PersonalLoansChart(props) {
       let longest=0; // i++
       let loan_instance=0
       let counter=0
-      loans.map(loan=>{
+      loans.forEach(loan=>{
         if(loan.term >longest){
           longest=loan.term
           loan_instance=counter
@@ -38,7 +40,7 @@ function PersonalLoansChart(props) {
       loans.sort((a,b)=>b.amount-a.amount)
       let monthlyPayment=monthlyCanAfford
 
-      loans.map(loan=>{
+      loans.forEach(loan=>{
         loan_one_month={month:0 , y:0, total_interest:0}
         const x = 12/loan.compounding_period
         let monthCompoundedOn = 0
@@ -49,11 +51,11 @@ function PersonalLoansChart(props) {
         }
         let interest=0
         for(let month=0; month<loan.term ;month++){
-          if( (month+1) % monthCompoundedOn ==0 ){ // interest is generated 
+          if( (month+1) % monthCompoundedOn ===0 ){ // interest is generated 
             interest= all_loans_combined[month-1].y *(loan.interest_rate/100/12) *monthCompoundedOn
             loan.amount+=interest
           }
-          if(counter!=0){
+          if(counter!==0){
               all_loans_combined[month].y =previous_loan_amout
           }
             all_loans_combined[month].month=month
@@ -69,7 +71,7 @@ function PersonalLoansChart(props) {
       })
       // the loan compounding 
 
-      all_loans_combined.map(loan=>{options.data[0].dataPoints.push(loan)})
+      all_loans_combined.forEach(loan=>{options.data[0].dataPoints.push(loan)})
   }
 
   const options = {
