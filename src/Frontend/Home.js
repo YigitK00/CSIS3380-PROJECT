@@ -17,7 +17,7 @@ const LoansDashboard = () => {
   const [loans, setLoans] = useState([]);
   useState(() => {
     axios
-      .get(`http://localhost:4000/${userEmail()}`)
+      .get(`https://ajax-api-qzf9.onrender.com/${userEmail()}`)
       .then(res => {
         setLoans(res.data);
       })
@@ -28,7 +28,7 @@ const LoansDashboard = () => {
 
   const deleteLoan = id => {
     axios
-      .delete('http://localhost:4000/' + id)
+      .delete('https://ajax-api-qzf9.onrender.com/' + id)
       .then(response => {
         console.log(response.data);
       })
@@ -49,10 +49,10 @@ const LoansDashboard = () => {
 
   if (loans.length > 0) {
     return (
-      <div className="main-content home">
+      <div className="homepage">
         <h1 className="heading">Welcome Back, {userEmail()}!</h1>
         <br />
-        <h2>Here are your loans and investments</h2>
+        <h1 className="heading">Here are your loans and investments</h1>
         <div>
           {loans.map(oneLoan => {
             let _amount = Math.round(
