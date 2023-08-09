@@ -20,11 +20,10 @@ function NewLoan() {
     console.log('Values: ', values);
 
     try {
-      await axios.post('http://localhost:4000/newloan', values, {
+      await axios.post('https://ajax-api-qzf9.onrender.com/newloan', values, {
         headers: { 'Access-Control-Allow-Origin': true },
       });
       navigate('/');
-
     } catch (err) {
       if (err && err instanceof AxiosError)
         setError(err.response?.data.message);
@@ -38,7 +37,7 @@ function NewLoan() {
     initialValues: {
       email: userEmail(),
       type: 'Personal',
-      expense: '',
+      expense: 1,
       name: '',
       amount: '',
       interest_rate: '',
@@ -64,8 +63,8 @@ function NewLoan() {
           </select>
           <label htmlFor="expense">Expense</label>
           <select name="expense" onChange={formik.handleChange} required>
-            <option value="1">Yes</option>
-            <option value="0">No</option>
+            <option value={1}>Yes</option>
+            <option value={0}>No</option>
           </select>
           <label htmlFor="name">Loan Name</label>
           <input

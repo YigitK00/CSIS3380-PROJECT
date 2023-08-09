@@ -1,5 +1,5 @@
 import React from 'react';
-import CanvasJSReact from '@canvasjs/react-charts';
+import CanvasJSReact from './@canvasjs/react-charts';
 
 function PersonalLoansChart(props) {
   // // Declare a state variable and its corresponding setter function using the useState hook
