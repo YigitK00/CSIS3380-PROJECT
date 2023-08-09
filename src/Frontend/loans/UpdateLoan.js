@@ -5,7 +5,7 @@ import { useNavigate } from 'react-router-dom';
 import { useState } from 'react';
 
 function UpdateLoan() {
-  const id = window.location.pathname
+  const id = window.location.pathname;
 
   const navigate = useNavigate();
   const [error, setError] = useState('');
@@ -13,11 +13,12 @@ function UpdateLoan() {
     console.log('Values: ', values);
 
     try {
-      await axios.put(`http://localhost:4000${id}`, values, {
+      await axios.post(`https://ajax-api-qzf9.onrender.com/${id}`, values, 
+      {
         headers: { 'Access-Control-Allow-Origin': true },
-      });
+      }
+      );
       navigate('/');
-      window.location.reload();
     } catch (err) {
       if (err && err instanceof AxiosError)
         setError(err.response?.data.message);
@@ -29,8 +30,7 @@ function UpdateLoan() {
 
   const formik = useFormik({
     initialValues: {
-      type: '',
-      expense: '',
+      expense: 1,
       name: '',
       amount: '',
       interest_rate: '',
@@ -46,8 +46,8 @@ function UpdateLoan() {
         <div className="loan-form">
           <label htmlFor="expense">Expense</label>
           <select name="expense" onChange={formik.handleChange} required>
-            <option value="1">Yes</option>
-            <option value="0">No</option>
+            <option value={1}>Yes</option>
+            <option value={0}>No</option>
           </select>
           <label htmlFor="name">Loan Name</label>
           <input
