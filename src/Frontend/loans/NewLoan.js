@@ -37,7 +37,7 @@ function NewLoan() {
     initialValues: {
       email: userEmail(),
       type: 'Personal',
-      expense: '',
+      expense: 1,
       name: '',
       amount: '',
       interest_rate: '',
@@ -63,8 +63,8 @@ function NewLoan() {
           </select>
           <label htmlFor="expense">Expense</label>
           <select name="expense" onChange={formik.handleChange} required>
-            <option value="1">Yes</option>
-            <option value="0">No</option>
+            <option value={1}>Yes</option>
+            <option value={0}>No</option>
           </select>
           <label htmlFor="name">Loan Name</label>
           <input
