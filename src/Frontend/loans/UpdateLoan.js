@@ -13,7 +13,7 @@ function UpdateLoan() {
     console.log('Values: ', values);
 
     try {
-      await axios.post(`https://ajax-api-qzf9.onrender.com/${id}`, values, 
+      await axios.post(`https://ajax-api-qzf9.onrender.com${id}`, values, 
       {
         headers: { 'Access-Control-Allow-Origin': true },
       }
